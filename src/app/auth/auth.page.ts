@@ -52,13 +52,14 @@ export class AuthPage implements OnInit {
 
   checkAccountCreated(){
 
-    if(
-      this.user.fname ||
-      this.user.lname 
-    ){
-      this.navCtrl.navigateForward("/home");
-    } else {
-
+    if(this.user){
+      if(
+        this.user.fname ||
+        this.user.lname 
+      ){
+        this.navCtrl.navigateForward("/home");
+      } 
     }
+   
   }
 }

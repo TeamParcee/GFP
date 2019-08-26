@@ -5,8 +5,14 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar></ion-searchbar>
+
   <ion-list>
-    <ion-item *ngFor="let coach of coaches">
+    <ion-item (click)="selectCoach(coach)" *ngFor="let coach of coaches">
+      <ion-label>
+        {{ coach.fname }} {{ coach.lname }}
+        <p> {{ coach.username }}</p>
+      </ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
