@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> {{ (showRegister) ? "Welome to GFPlanner" : "Welcome Back" }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-button *ngIf="showRegister" (click)="showRegister = false" fill="clear" >Already have an account</ion-button>
+  <ion-button  *ngIf="!showRegister"  (click)="showRegister = true" fill="clear" >Create an Account</ion-button>
+  <app-register *ngIf="showRegister"></app-register>
+  <app-login *ngIf="!showRegister"></app-login>
+</ion-content>

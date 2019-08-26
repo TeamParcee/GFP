@@ -1,0 +1,36 @@
+<form [formGroup]="registerForm">
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Are you a Head Coach?</ion-label>
+      <ion-checkbox checked="false" formControlName="isCoach"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input formControlName="fname"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input formControlName="lname"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input formControlName="username" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+    <ion-button [disabled]="!registerForm.valid" margin-top expand="full" (click)="register()">Create Account
+    </ion-button>
+  </ion-list>
+</form>
