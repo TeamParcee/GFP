@@ -1,0 +1,27 @@
+<form [formGroup]="profileForm">
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Are you a Head Coach?</ion-label>
+      <ion-checkbox checked="false" formControlName="isCoach"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input formControlName="fname"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input formControlName="lname"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input formControlName="username" type="text"></ion-input>
+    </ion-item>
+
+    <ion-button [disabled]="!profileForm.valid" margin-top expand="full" (click)="register()">Complete Account
+    </ion-button>
+  </ion-list>
+</form>

@@ -6,8 +6,18 @@
 
 <ion-content padding>
 
-  <ion-button *ngIf="showRegister" (click)="showRegister = false" fill="clear" >Already have an account</ion-button>
-  <ion-button  *ngIf="!showRegister"  (click)="showRegister = true" fill="clear" >Create an Account</ion-button>
-  <app-register *ngIf="showRegister"></app-register>
-  <app-login *ngIf="!showRegister"></app-login>
+  <ion-button *ngIf=" !accountCreated && showRegister" (click)="showRegister = false" fill="clear">Already have an
+    account</ion-button>
+
+  <ion-button *ngIf=" !accountCreated && !showRegister" (click)="showRegister = true" fill="clear">Create an Account
+  </ion-button>
+
+  <ion-button *ngIf=" accountCreated " (click)="logout()" fill="clear">Log Off
+  </ion-button>
+
+  <app-register *ngIf=" !accountCreated && showRegister"></app-register>
+
+  <app-login *ngIf=" !accountCreated && !showRegister"></app-login>
+
+  <app-complete-register *ngIf="accountCreated"></app-complete-register>
 </ion-content>

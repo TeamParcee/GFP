@@ -18,9 +18,6 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {
     this.registerForm = this.formBuilder.group({
-      isCoach: ['', []],
-      fname: ['', [Validators.required]],
-      lname: ['', [Validators.required]],
       email: ['', [Validators.email]],
       password: ['', Validators.required],
       username: ['', Validators.required]
@@ -35,9 +32,8 @@ export class RegisterComponent implements OnInit {
   register() {
     this.helper.showLoading();
     let form = this.registerForm.value;
-    this.userService.createUser(form.email, form.password, form.username, {...form}).then(() => {
+    this.userService.createUser(form.email, form.password, form.username).then(() => {
     this.helper.hideLoading();
-    this.router.navigateByUrl("/select-coach")
     }).catch((e)=>{
       this.helper.hideLoading();
       this.helper.okAlert("Error Occured", e.message);

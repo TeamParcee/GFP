@@ -36,7 +36,7 @@ export class FirebaseService {
 
     return new Promise((resolve) => {
       firebase.firestore().doc(doc).set(obj).then(() => {
-        resolve()
+        return resolve()
       })
     })
   }

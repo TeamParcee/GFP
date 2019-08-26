@@ -14,21 +14,24 @@ export class AuthGuard implements CanLoad {
 
   }
 
-canLoad(){
-  return this.checkUser()
+async canLoad(){
+  return await this.checkUser()
 }
 
 
 checkUser(): any{
-
+return new Promise((resolve)=>{
   firebase.auth().onAuthStateChanged((user)=>{
+    
     if(user){
-      return true
+      return resolve(true)
     } else {
       this.router.navigateByUrl("/auth");
-      return false
+      return resolve(false)
     }
   })
+})
+
 }
 
 }
