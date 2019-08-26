@@ -10,10 +10,10 @@
       <ion-button fill="clear">Tue, Aug 27, 2019</ion-button>
     </ion-col>
     <ion-col>
-      <ion-button fill="clear">Day 1</ion-button>
+      <ion-button  (click)="viewDays()" fill="clear">Day 1</ion-button>
     </ion-col>
     <ion-col>
-      <ion-button (click)="viewWeeks()" fill="clear">Week {{ currentWeek.week }}</ion-button>
+      <ion-button (click)="viewWeeks()" fill="clear">Week {{ currentWeek?.week }}</ion-button>
     </ion-col>
 
   </ion-row>

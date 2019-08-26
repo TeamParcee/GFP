@@ -9,8 +9,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-item [ngClass]="{'selected': week.week == currentWeek.week}" (click)="selectWeek(week.id, week.week)" *ngFor="let week of weeks">
-    {{ week.week }}
-  </ion-item>
+
+    <ion-item [ngClass]="{'selected': week?.week == currentWeek?.week}" (click)="selectWeek(week.id, week.week)"
+      *ngFor="let week of weeks">
+      {{ week?.week }}
+    </ion-item>
+
 
 </ion-list>

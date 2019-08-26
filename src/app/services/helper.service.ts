@@ -105,13 +105,14 @@ export class HelperService {
 
   }
 
-  presentPopover(ev: Event, component) {
+  presentPopover(ev: Event, component, componentProps) {
 
     return new Promise((resolve) => {
       return this.popoverCtrl.create({
         component: component,
         event: ev,
-        translucent: true
+        translucent: true,
+        componentProps: componentProps,
       }).then((popover) => {
         popover.present();
         popover.onDidDismiss().then((result) => {

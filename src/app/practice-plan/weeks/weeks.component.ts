@@ -71,6 +71,7 @@ export class WeeksComponent implements OnInit {
   }
 
   selectWeek(weekId, week){
-    this.activityService.selectWeek(weekId, week)
+    this.activityService.selectWeek(weekId, week);
+    this.helper.closePopover();
   }
 }

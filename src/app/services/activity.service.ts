@@ -4,7 +4,6 @@ import { FirebaseService } from './firebase.service';
 import { NavController } from '@ionic/angular';
 import { UserService } from './user.service';
 import * as firebase from 'firebase';
-import { resolve } from 'dns';
 
 @Injectable({
   providedIn: 'root'

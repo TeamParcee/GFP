@@ -1,0 +1,19 @@
+<ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button fill="clear" (click)="newDay()">New</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="danger" fill="clear" (click)="deleteDay()">Delete</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  
+      <ion-item [ngClass]="{'selected': day?.day == currentDay?.day}" (click)="selectDay(day.id, dya.day)"
+        *ngFor="let week of weeks">
+        {{ day?.day }}
+      </ion-item>
+  
+  
+  </ion-list>

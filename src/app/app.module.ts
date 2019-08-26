@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import * as firebase from 'firebase';
 import { WeeksComponent } from './practice-plan/weeks/weeks.component';
+import { DaysComponent } from './practice-plan/days/days.component';
 
  // Your web app's Firebase configuration
  var firebaseConfig = {
@@ -24,8 +25,8 @@ import { WeeksComponent } from './practice-plan/weeks/weeks.component';
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 @NgModule({
-  declarations: [AppComponent, WeeksComponent],
-  entryComponents: [WeeksComponent],
+  declarations: [AppComponent, WeeksComponent, DaysComponent],
+  entryComponents: [WeeksComponent, DaysComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
