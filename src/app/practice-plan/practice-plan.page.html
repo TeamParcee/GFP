@@ -13,7 +13,7 @@
       <ion-button fill="clear">Day 1</ion-button>
     </ion-col>
     <ion-col>
-      <ion-button fill="clear">Week 1</ion-button>
+      <ion-button (click)="viewWeeks()" fill="clear">Week {{ currentWeek.week }}</ion-button>
     </ion-col>
 
   </ion-row>

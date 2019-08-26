@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import * as firebase from 'firebase';
+import { WeeksComponent } from './practice-plan/weeks/weeks.component';
 
  // Your web app's Firebase configuration
  var firebaseConfig = {
@@ -23,8 +24,8 @@ import * as firebase from 'firebase';
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, WeeksComponent],
+  entryComponents: [WeeksComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
