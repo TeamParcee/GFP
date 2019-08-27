@@ -27,7 +27,6 @@ export class WeeksComponent implements OnInit {
 
   async ionViewWillEnter() {
     this.getWeeks();
-    console.log(await this.getLastWeek())
   }
   newWeek() {
     this.activityService.newWeek()
@@ -36,7 +35,6 @@ export class WeeksComponent implements OnInit {
     this.helper.confirmationAlert("Delete Last Week", "Are you sure you want to delete the Last Week? It can not be undone.", { denyText: "Cancel", confirmText: "Delete Week" })
       .then(async (result) => {
         if (result) {
-          console.log(result);
           let week: any = await this.getLastWeek();
           this.activityService.deleteWeek(week.id)
         }
@@ -72,6 +70,7 @@ export class WeeksComponent implements OnInit {
 
   selectWeek(weekId, week){
     this.activityService.selectWeek(weekId, week);
+    this.activityService.selectDay(0, 0)
     this.helper.closePopover();
   }
 }

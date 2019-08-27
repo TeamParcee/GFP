@@ -10,8 +10,8 @@
       </ion-row>
     </ion-grid>
   
-      <ion-item [ngClass]="{'selected': day?.day == currentDay?.day}" (click)="selectDay(day.id, dya.day)"
-        *ngFor="let week of weeks">
+      <ion-item [ngClass]="{'selected': day?.day == currentDay?.day}" (click)="selectDay(day.id, day.day)"
+        *ngFor="let day of days">
         {{ day?.day }}
       </ion-item>
   

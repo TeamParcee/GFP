@@ -1,0 +1,7 @@
+<ion-list>
+  <ion-item-divider>Activities</ion-item-divider>
+  <ion-item *ngFor="let activity of activities">
+    {{ activity.name }}
+  </ion-item>
+  <ion-button fill="clear" (click)="newActivity()">New Activity</ion-button>
+</ion-list>

@@ -5,6 +5,8 @@ import { ActivityService } from '../services/activity.service';
 import * as firebase from 'firebase';
 import { UserService } from '../services/user.service';
 import { DaysComponent } from './days/days.component';
+import * as moment from 'moment';
+import { FirebaseService } from '../services/firebase.service';
 
 @Component({
   selector: 'app-practice-plan',
@@ -17,6 +19,7 @@ export class PracticePlanPage implements OnInit {
     private userService: UserService,
     private activityService: ActivityService,
     private helper:HelperService,
+    private firebaseService: FirebaseService,
   ) { }
 
   ngOnInit() {
@@ -24,11 +27,16 @@ export class PracticePlanPage implements OnInit {
 
   currentWeek;
   currentDay;
-  
+  date;
+  showCalendar = false;
+
   async ionViewWillEnter(){
     
     this.getCurrentWeek();
+    this.getCurrentDay();
   }
+
+  
   viewWeeks(){
     this.helper.presentPopover(event, WeeksComponent, {currentWeek: this.currentWeek})
   }
@@ -42,4 +50,22 @@ export class PracticePlanPage implements OnInit {
       this.currentWeek = await this.activityService.getCurrentWeek();
     })
   }
+
+  getCurrentDay(){
+    firebase.firestore().doc("/users/" + this.userService.user.uid + "/utility/currentDay/").onSnapshot(async()=>{
+      this.currentDay = await this.activityService.getCurrentDay();
+      this.date = await this.activityService.getDate(this.currentWeek.weekId, this.currentDay.dayId);
+      console.log(this.date);
+    })
+  }
+
+  async dateSelected(event) {
+    let date = moment(event.toString()).format('ll');
+    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.dayId, { date: date })
+    this.showCalendar = false;
+    this.date = await this.activityService.getDate(this.currentWeek.weekId, this.currentDay.dayId);
+  }
+
+
+  
 }

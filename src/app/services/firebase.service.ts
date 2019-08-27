@@ -61,9 +61,11 @@ export class FirebaseService {
 
   getDocument(doc) {
     return new Promise((resolve) => {
-      return firebase.firestore().doc(doc).get().then((snapshot) => {
+      return firebase.firestore().doc(doc).onSnapshot((snapshot) => {
         return resolve(snapshot.data())
       })
     })
   }
+
+  
 }

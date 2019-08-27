@@ -4,6 +4,7 @@ import { FirebaseService } from './firebase.service';
 import { NavController } from '@ionic/angular';
 import { UserService } from './user.service';
 import * as firebase from 'firebase';
+import { Observable, observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,19 @@ export class ActivityService {
     private firebaseService: FirebaseService,
     private navCtrl: NavController,
     private userService: UserService,
-  ) { 
+  ) {
     this.getWeekCount();
   }
 
 
   weekCount;
 
+
+  currentDay = new Observable((observer) => {
+    this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/utility/currentDay/").then((currentDay) => {
+      observer.next(currentDay)
+    })
+  })
   getWeekCount() {
     firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks/").onSnapshot((weekSnap) => {
       this.weekCount = (weekSnap.size) ? weekSnap.size : 0;
@@ -40,6 +47,7 @@ export class ActivityService {
   }
 
   async newDay(weekId, start, date) {
+    console.log(await this.getDayCount(weekId));
     this.firebaseService.addDocument("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days", { day: (await this.getDayCount(weekId) + 1), start: start, date: date })
   }
 
@@ -92,38 +100,70 @@ export class ActivityService {
 
   newActivity(weekId, dayId, activity) {
     return new Promise((resolve) => {
-      this.firebaseService.addDocument("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days/" + dayId + "/activities", activity).then(()=>{
+      this.firebaseService.addDocument("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days/" + dayId + "/activities", activity).then(() => {
         return resolve()
       })
     })
   }
-  deleteActivity(weekId, dayId, activity ){
-    return new Promise((resolve, reject)=>{
-      this.firebaseService.deleteDocument("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days/" + dayId + "/activiities/" + activity.id).then(()=>{
+  deleteActivity(weekId, dayId, activity) {
+    return new Promise((resolve, reject) => {
+      this.firebaseService.deleteDocument("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days/" + dayId + "/activiities/" + activity.id).then(() => {
         return resolve()
-      }).catch((e)=>{
+      }).catch((e) => {
         return reject(e)
       })
     })
   }
-  editActivity(weekId, dayId, activity){
-    return new Promise((resolve, reject)=>{
+  editActivity(weekId, dayId, activity) {
+    return new Promise((resolve, reject) => {
       this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days/" + dayId + "/activities/" + activity.id, activity)
-      .then(()=>{
-        return resolve();
-      }).catch((e)=>{
-        return reject(e)
-      })
+        .then(() => {
+          return resolve();
+        }).catch((e) => {
+          return reject(e)
+        })
     })
   }
 
-  selectWeek(weekId, week){
-    this.firebaseService.setDocument("/users/" + this.userService.user.uid + "/utility/currentWeek/",{weekId:weekId, week: week} )
+  selectWeek(weekId, week) {
+    this.firebaseService.setDocument("/users/" + this.userService.user.uid + "/utility/currentWeek/", { weekId: weekId, week: week })
   }
 
-  getCurrentWeek(){
-    return new Promise((resolve)=>{
+  selectDay(dayId, day) {
+    this.firebaseService.setDocument("/users/" + this.userService.user.uid + "/utility/currentDay/", { dayId: dayId, day: day })
+  }
+
+  getCurrentWeek() {
+    return new Promise((resolve) => {
       return resolve(this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/utility/currentWeek/"))
     })
   }
+  getCurrentDay() {
+    return new Promise((resolve) => {
+      return resolve(this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/utility/currentDay/"))
+    })
+  }
+
+  getDate(weekId, dayId) {
+    return new Promise((resolve) => {
+      return firebase.firestore().doc("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days/" + dayId).onSnapshot((snapshot) => {
+        if (snapshot.exists) {
+          let date = snapshot.data();
+          return resolve(date)
+        } 
+      })
+    })
+
+
+  }
+}
+
+export class Activity {
+  constructor(
+    public name?: string,
+    public duration?: number,
+    public start?: string,
+    public date?: string,
+    public notes?: string
+  ) { }
 }

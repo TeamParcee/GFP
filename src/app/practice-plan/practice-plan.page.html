@@ -5,16 +5,29 @@
 </ion-header>
 
 <ion-content>
-  <ion-row style="max-width: 400px">
-    <ion-col>
-      <ion-button fill="clear">Tue, Aug 27, 2019</ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button  (click)="viewDays()" fill="clear">Day 1</ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button (click)="viewWeeks()" fill="clear">Week {{ currentWeek?.week }}</ion-button>
-    </ion-col>
+  <ion-grid>
+    <ion-row style="max-width: 400px">
+      <ion-col>
+        <ion-button fill="clear" (click)="showCalendar = !showCalendar">{{ (date?.date) ? date?.date : "Choose Date" }}</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="viewDays()" fill="clear">Day {{ currentDay?.day }}</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="viewWeeks()" fill="clear">Week {{ currentWeek?.week }}</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ionic-calendar-date-picker *ngIf="showCalendar" style="max-width: 100px" (onSelect)="dateSelected($event)">
+        </ionic-calendar-date-picker>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <app-activities></app-activities>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  </ion-row>
 </ion-content>
