@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   login(){
     let form = this.loginForm.value;
     this.userService.login(form.email, form.password).then(()=>{
-      this.navCtrl.navigateForward("/home")
+      this.navCtrl.navigateForward("/tabs/home")
     })
   }
 

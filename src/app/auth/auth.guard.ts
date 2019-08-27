@@ -10,28 +10,28 @@ export class AuthGuard implements CanLoad {
 
   constructor(
     private router: Router
-  ){
+  ) {
 
   }
 
-async canLoad(){
-  return await this.checkUser()
-}
+  async canLoad() {
+    return await this.checkUser()
+  }
 
 
-checkUser(): any{
-return new Promise((resolve)=>{
-  firebase.auth().onAuthStateChanged((user)=>{
-    
-    if(user){
-      return resolve(true)
-    } else {
-      this.router.navigateByUrl("/auth");
-      return resolve(false)
-    }
-  })
-})
+  checkUser(): any {
+    return new Promise((resolve) => {
+      return firebase.auth().onAuthStateChanged((user) => {
+        console.log(user, "sadfsadf");
+        if (user) {
+          return resolve(true)
+        } else {
+          this.router.navigateByUrl("/auth");
+          return resolve(false)
+        }
+      })
+    })
 
-}
+  }
 
 }

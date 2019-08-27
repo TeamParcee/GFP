@@ -31,7 +31,7 @@ export class AuthPage implements OnInit {
 
   ionViewWillEnter() {
     firebase.auth().onAuthStateChanged(async(user) => {
-      this.accountCreated = (user) ? await this.getUserData() : false;
+      this.accountCreated = (user) ? true: false;
      this.checkAccountCreated()
     })
   }
@@ -40,10 +40,7 @@ export class AuthPage implements OnInit {
   }
 
 
-  async getUserData() {
-    this.user = await this.userService.getUserData();
-    return true
-  }
+  
   logout() {
     this.userService.logoff().then(() => {
       this.navCtrl.navigateBack("/auth");
@@ -57,7 +54,7 @@ export class AuthPage implements OnInit {
         this.user.fname ||
         this.user.lname 
       ){
-        this.navCtrl.navigateForward("/home");
+        this.navCtrl.navigateForward("/tabs/home");
       } 
     }
    

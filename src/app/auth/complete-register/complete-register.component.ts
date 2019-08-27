@@ -4,6 +4,8 @@ import { HelperService } from 'src/app/services/helper.service';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UserService } from 'src/app/services/user.service';
+import * as firebase from 'firebase';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-complete-register',
@@ -18,6 +20,7 @@ export class CompleteRegisterComponent implements OnInit {
     private firebaseService: FirebaseService,
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private navCtrl: NavController,
   ) {
     this.getUser();
     this.profileForm = this.formBuilder.group({
@@ -52,11 +55,13 @@ export class CompleteRegisterComponent implements OnInit {
     }
     this.firebaseService.setDocument("users/" + this.user.uid, data).then(()=>{
       this.helper.hideLoading();
-      this.router.navigateByUrl("/tabs/home");
+      this.navCtrl.navigateForward("/tabs/home");
     })
   }
 
   async getUser(){
-    this.user = await this.userService.user;
+    firebase.auth().onAuthStateChanged((user)=>{
+      this.user = user;
+    })
   }
 }

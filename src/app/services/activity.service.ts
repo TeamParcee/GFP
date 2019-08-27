@@ -53,7 +53,7 @@ export class ActivityService {
 
   getWeekId(week) {
     return new Promise((resolve) => {
-      return firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks/")
+      return firebase.firestore().collection("/users/" + this.userService.user.coach + "/weeks/")
         .where("week", "==", week)
         .get().then((weekSnap) => {
           let weeks = [];
@@ -67,7 +67,7 @@ export class ActivityService {
 
   getDayId(weekId, day) {
     return new Promise((resolve) => {
-      return firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days")
+      return firebase.firestore().collection("/users/" + this.userService.user.coach + "/weeks/" + weekId + "/days")
         .where("day", "==", day)
         .get().then((daySnap) => {
           let days = [];
@@ -146,7 +146,7 @@ export class ActivityService {
 
   getDate(weekId, dayId) {
     return new Promise((resolve) => {
-      return firebase.firestore().doc("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days/" + dayId).onSnapshot((snapshot) => {
+      return firebase.firestore().doc("/users/" + this.userService.user.coach + "/weeks/" + weekId + "/days/" + dayId).onSnapshot((snapshot) => {
         if (snapshot.exists) {
           let date = snapshot.data();
           return resolve(date)

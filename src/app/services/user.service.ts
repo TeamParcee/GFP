@@ -18,8 +18,8 @@ export class UserService {
   user;
 
   getUser() {
-    firebase.auth().onAuthStateChanged((user) => {
-      this.user = user;
+    firebase.auth().onAuthStateChanged(async (user) => {
+      this.user = await this.getUserData(user);
     })
   }
 
@@ -28,14 +28,16 @@ export class UserService {
 
   }
 
-  getUserData() {
-    return new Promise((resolve, reject) => {
-      return firebase.firestore().collection("users").doc(this.user.uid).get().then((user) => {
-        return resolve(user.data())
-      }).catch((e) => {
-        return reject(e)
+  getUserData(user) {
+    if (user) {
+      return new Promise((resolve, reject) => {
+        return firebase.firestore().collection("users").doc(user.uid).get().then((u) => {
+          return resolve(u.data())
+        }).catch((e) => {
+          return reject(e)
+        })
       })
-    })
+    }
   }
 
   getUserFromUid(uid) {

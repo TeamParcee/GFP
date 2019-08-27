@@ -47,7 +47,7 @@ export class DaysComponent implements OnInit {
 
   }
   getDays() {
-    firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days")
+    firebase.firestore().collection("/users/" + this.userService.user.coach + "/weeks/" + this.currentWeek.weekId + "/days")
       .orderBy("day")
       .onSnapshot((daySnap) => {
         let days = [];

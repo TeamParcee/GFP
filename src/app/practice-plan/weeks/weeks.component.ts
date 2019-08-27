@@ -22,7 +22,7 @@ export class WeeksComponent implements OnInit {
 
   weeks;
   currentWeek;
-  
+
   ngOnInit() { }
 
   async ionViewWillEnter() {
@@ -42,7 +42,8 @@ export class WeeksComponent implements OnInit {
 
   }
   getWeeks() {
-    firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks")
+    console.log(this.userService.user.coach);
+    firebase.firestore().collection("/users/" + this.userService.user.coach + "/weeks")
       .orderBy("week")
       .onSnapshot((weekSnap) => {
         let weeks = [];
