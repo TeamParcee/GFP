@@ -30,21 +30,23 @@ export class SelectCoachGuard implements CanActivate {
 
 
   getCoach(): any {
-    return new Promise((resolve) => {
-      firebase.auth().onAuthStateChanged(async (userFirebase) => {
-        let user: any = await this.userService.getUserData();
-        if (user) {
+    return new Promise(async (resolve) => {
+      firebase.auth().onAuthStateChanged(async(u) => {
+        if (u) {
+          let user:any = await this.userService.getUserData(u);
+          console.log(user)
           if (user.coach) {
             return resolve(true)
           } else {
             this.router.navigateByUrl("select-coach")
             return resolve(false);
           }
-        } else{
+        } else {
           this.navCtrl.navigateBack("/auth");
         }
 
       })
     })
+
   }
 }

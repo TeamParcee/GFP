@@ -5,6 +5,7 @@ import { HelperService } from 'src/app/services/helper.service';
 import { ActivityService, Activity } from 'src/app/services/activity.service';
 import { nextTick } from 'q';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { EditActivityPage } from './edit-activity/edit-activity.page';
 
 @Component({
   selector: 'app-activities',
@@ -64,5 +65,9 @@ export class ActivitiesComponent implements OnInit {
    }
     let activity = new Activity("New Activity", 0, "", "", "");
     this.firebaseService.addDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.dayId + "/activities", activity)
+  }
+
+  editActivity(activity){
+    this.helper.openModal(EditActivityPage, {activity: activity, currentWeek: this.currentWeek, currentDay: this.currentDay})
   }
 }

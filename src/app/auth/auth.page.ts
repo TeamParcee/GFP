@@ -30,6 +30,7 @@ export class AuthPage implements OnInit {
   accountCreated: boolean;
 
   ionViewWillEnter() {
+    this.checkAccountCreated();
     firebase.auth().onAuthStateChanged(async(user) => {
       this.accountCreated = (user) ? true: false;
      this.checkAccountCreated()
@@ -55,7 +56,9 @@ export class AuthPage implements OnInit {
         this.user.lname 
       ){
         this.navCtrl.navigateForward("/tabs/home");
-      } 
+      } else {
+        console.log("account not created")
+      }
     }
    
   }

@@ -21,6 +21,8 @@
       <ion-col>
         <ionic-calendar-date-picker *ngIf="showCalendar" style="max-width: 100px" (onSelect)="dateSelected($event)">
         </ionic-calendar-date-picker>
+
+        <ion-datetime minuteValues="00, 15, 30, 45" pickerFormat="hh:mm a" displayFormat="hh:mm a"></ion-datetime>
       </ion-col>
     </ion-row>
     <ion-row>

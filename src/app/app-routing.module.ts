@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'schedule', loadChildren: './schedule/schedule.module#SchedulePageModule' },
   { path: 'news', loadChildren: './news/news.module#NewsPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
+  { path: 'edit-activity', loadChildren: './practice-plan/activities/edit-activity/edit-activity.module#EditActivityPageModule' },
 
 ];
 

@@ -21,9 +21,8 @@ export class AuthGuard implements CanLoad {
 
   checkUser(): any {
     return new Promise((resolve) => {
-      return firebase.auth().onAuthStateChanged((user) => {
-        console.log(user, "sadfsadf");
-        if (user) {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user != undefined) {
           return resolve(true)
         } else {
           this.router.navigateByUrl("/auth");

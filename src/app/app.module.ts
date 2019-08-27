@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import * as firebase from 'firebase';
 import { WeeksComponent } from './practice-plan/weeks/weeks.component';
 import { DaysComponent } from './practice-plan/days/days.component';
+import { EditActivityPage } from './practice-plan/activities/edit-activity/edit-activity.page';
+import { FormsModule } from '@angular/forms';
+import { QuillModule,  } from 'ngx-quill'
 
  // Your web app's Firebase configuration
  var firebaseConfig = {
@@ -25,9 +28,14 @@ import { DaysComponent } from './practice-plan/days/days.component';
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 @NgModule({
-  declarations: [AppComponent, WeeksComponent, DaysComponent],
-  entryComponents: [WeeksComponent, DaysComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  declarations: [AppComponent, WeeksComponent, DaysComponent, EditActivityPage],
+  entryComponents: [WeeksComponent, DaysComponent, EditActivityPage],
+  imports: [
+    BrowserModule, 
+    QuillModule.forRoot(),
+    FormsModule,
+    IonicModule.forRoot(), 
+    AppRoutingModule],
   providers: [
     StatusBar,
     SplashScreen,
