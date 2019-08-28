@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class EditActivityPage implements OnInit, OnDestroy {
   
   ngOnDestroy() {
-    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.dayId + "/activities/" + this.activity.id, this.activity)
+    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id + "/activities/" + this.activity.id, this.activity)
   }
 
   constructor(

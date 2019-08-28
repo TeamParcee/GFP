@@ -91,3 +91,14 @@ export class UserService {
     })
   }
 }
+export class userData {
+  constructor(
+    public fname?: string,
+    public lname?: string,
+    public uid?: string,
+    public coach?:string,
+    public isCoach?:boolean,
+    public photoURL?: string,
+    public displayName?: string,
+  ) { }
+}

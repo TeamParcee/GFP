@@ -28,12 +28,16 @@ export class PracticePlanPage implements OnInit {
   currentWeek;
   currentDay;
   date;
-  showCalendar = false;
+  showCalendar;
+  showStartTime;
+  showSelectTime;
+  showSelectDate;
+  startTime;
 
   async ionViewWillEnter() {
-
     this.getCurrentWeek();
     this.getCurrentDay();
+    this.getStartTime();
   }
 
 
@@ -42,6 +46,7 @@ export class PracticePlanPage implements OnInit {
   }
 
   viewDays() {
+    this.activityService.startTime.next("b");
     this.helper.presentPopover(event, DaysComponent, { currentWeek: this.currentWeek, currentDay: this.currentDay })
   }
 
@@ -52,26 +57,51 @@ export class PracticePlanPage implements OnInit {
   }
 
   getCurrentDay() {
+    
     firebase.firestore().doc("/users/" + this.userService.user.uid + "/utility/currentDay/").onSnapshot(async () => {
       this.currentDay = await this.activityService.getCurrentDay();
-      this.date = await this.activityService.getDate(this.currentWeek.weekId, this.currentDay.dayId);
+      if(this.currentDay){
+        this.startTime = (this.currentDay.start) ? this.currentDay.start : null;
+        this.activityService.startTime = this.startTime;
+        this.date = this.currentDay.date;
+        this.showSelectTime = true;
+        this.showSelectDate = true;
+      } else {
+        this.showSelectTime = false;
+        this.showSelectDate = false;
+      }
+     
+      
     })
   }
 
   async dateSelected(event) {
 
     let date = moment(event.toString()).format('ll');
-    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.dayId, { date: date })
+    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id, { date: date })
     this.showCalendar = false;
-    this.date = await this.activityService.getDate(this.currentWeek.weekId, this.currentDay.dayId);
+    this.date = date;
   }
 
   checkDay() {
-    if (this.currentDay.dayId == 0) {
+    if (this.currentDay.id == 0) {
       this.helper.okAlert("Select Day", "Please select a day.")
       return;
     }
     this.showCalendar = !this.showCalendar
   }
 
+  checkStartTime() {
+    if (this.currentDay.id == 0) {
+      this.helper.okAlert("Select Day", "Please select a day.")
+      return;
+    }
+    this.showStartTime = !this.showStartTime
+  }
+
+  updateTime() {
+    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id, { start: this.startTime })
+  }
+  async getStartTime() {
+  }
 }

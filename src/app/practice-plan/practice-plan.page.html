@@ -6,15 +6,18 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row style="max-width: 400px">
+    <ion-row>
       <ion-col>
-        <ion-button fill="clear" (click)="checkDay()">{{ (date?.date) ? date?.date : "Choose Date" }}</ion-button>
+        <ion-button  *ngIf="showSelectDate" size="small" fill="clear" (click)="checkDay()">{{ (date) ? date : "Choose Date" }}</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button (click)="viewDays()" fill="clear">Day {{ currentDay?.day }}</ion-button>
+        <ion-button  *ngIf="showSelectTime" size="small" fill="clear" (click)="checkStartTime()">{{ (startTime) ? (startTime | date: 'h:mm a') : "Start Time" }}</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button (click)="viewWeeks()" fill="clear">Week {{ currentWeek?.week }}</ion-button>
+        <ion-button size="small" (click)="viewDays()" fill="clear">Day {{ currentDay?.day }}</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button size="small" (click)="viewWeeks()" fill="clear">Week {{ currentWeek?.week }}</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -22,12 +25,16 @@
         <ionic-calendar-date-picker *ngIf="showCalendar" style="max-width: 100px" (onSelect)="dateSelected($event)">
         </ionic-calendar-date-picker>
 
-        <ion-datetime minuteValues="00, 15, 30, 45" pickerFormat="hh:mm a" displayFormat="hh:mm a"></ion-datetime>
+        <ion-item *ngIf="showStartTime">
+          <ion-label>Start Time</ion-label>
+          <ion-datetime (ionChange)="updateTime()" [(ngModel)]="startTime"  minuteValues="00, 15, 30, 45" pickerFormat="hh:mm a" displayFormat="hh:mm a"></ion-datetime>
+        </ion-item>
+        
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-          <app-activities></app-activities>
+        <app-activities></app-activities>
       </ion-col>
     </ion-row>
   </ion-grid>

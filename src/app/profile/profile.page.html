@@ -1,12 +1,39 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+    <ion-buttons *ngIf="user">
+      <ion-back-button [disabled]="!user.fname || !user.lname" slot="start" defaultHref="/tabs/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        Log Out
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
+  <ion-list *ngIf="user">
+    <ion-button *ngIf="!user.isCoach" fill="clear" (click)="isCoachNow()"> I am a Head Coach</ion-button>
+    <ion-button *ngIf="user.isCoach" fill="clear" (click)="isNotCoachNow()"> Remove as Coach</ion-button>
+    <ion-button *ngIf="!user.isCoach" fill="clear" (click)="changeCoach()"> Change Coach</ion-button>
+    <ion-item>
+        <ion-label position="stacked">Head Coach</ion-label>
+        <ion-input [disabled]="true" [(ngModel)]="coach"></ion-input>
+      </ion-item>
+    <ion-item>
+      <ion-label position="stacked">User Name</ion-label>
+      <ion-input [disabled]="disableUserName" [(ngModel)]="user.username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">First Name</ion-label>
+      <ion-input [(ngModel)]="user.fname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Last Name</ion-label>
+      <ion-input [(ngModel)]="user.lname"></ion-input>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

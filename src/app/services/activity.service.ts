@@ -4,7 +4,9 @@ import { FirebaseService } from './firebase.service';
 import { NavController } from '@ionic/angular';
 import { UserService } from './user.service';
 import * as firebase from 'firebase';
-import { Observable, observable } from 'rxjs';
+import { Observable, observable, of, from, Subject } from 'rxjs';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { RSA_X931_PADDING } from 'constants';
 
 @Injectable({
   providedIn: 'root'
@@ -22,13 +24,11 @@ export class ActivityService {
 
 
   weekCount;
+  public startTime = new Subject();
+  startTimeOb = this.startTime.subscribe(x => console.log(x))
+  currentDay;
+  currentWeek;
 
-
-  currentDay = new Observable((observer) => {
-    this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/utility/currentDay/").then((currentDay) => {
-      observer.next(currentDay)
-    })
-  })
   getWeekCount() {
     firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks/").onSnapshot((weekSnap) => {
       this.weekCount = (weekSnap.size) ? weekSnap.size : 0;
@@ -139,8 +139,10 @@ export class ActivityService {
     })
   }
   getCurrentDay() {
-    return new Promise((resolve) => {
-      return resolve(this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/utility/currentDay/"))
+    return new Promise(async(resolve) => {
+      let day:any = await this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/utility/currentDay/");
+      let week:any = await this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/utility/currentWeek/");
+      return resolve(this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/weeks/" + week.weekId + "/days/" + day.dayId))
     })
   }
 
@@ -160,6 +162,7 @@ export class ActivityService {
 
 export class Activity {
   constructor(
+    public order?: number,
     public name?: string,
     public duration?: number,
     public start?: string,
