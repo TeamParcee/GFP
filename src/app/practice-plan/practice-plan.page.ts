@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { DaysComponent } from './days/days.component';
 import * as moment from 'moment';
 import { FirebaseService } from '../services/firebase.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-practice-plan',
@@ -37,7 +38,6 @@ export class PracticePlanPage implements OnInit {
   async ionViewWillEnter() {
     this.getCurrentWeek();
     this.getCurrentDay();
-    this.getStartTime();
   }
 
 
@@ -46,7 +46,6 @@ export class PracticePlanPage implements OnInit {
   }
 
   viewDays() {
-    this.activityService.startTime.next("b");
     this.helper.presentPopover(event, DaysComponent, { currentWeek: this.currentWeek, currentDay: this.currentDay })
   }
 
@@ -99,9 +98,5 @@ export class PracticePlanPage implements OnInit {
     this.showStartTime = !this.showStartTime
   }
 
-  updateTime() {
-    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id, { start: this.startTime })
-  }
-  async getStartTime() {
-  }
+
 }

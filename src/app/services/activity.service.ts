@@ -5,8 +5,7 @@ import { NavController } from '@ionic/angular';
 import { UserService } from './user.service';
 import * as firebase from 'firebase';
 import { Observable, observable, of, from, Subject } from 'rxjs';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { RSA_X931_PADDING } from 'constants';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +19,13 @@ export class ActivityService {
     private userService: UserService,
   ) {
     this.getWeekCount();
+   
   }
 
 
   weekCount;
-  public startTime = new Subject();
-  startTimeOb = this.startTime.subscribe(x => console.log(x))
+  startTime = new Subject();
+  startTimeOb;
   currentDay;
   currentWeek;
 
@@ -155,9 +155,9 @@ export class ActivityService {
         } 
       })
     })
-
-
   }
+
+ 
 }
 
 export class Activity {
