@@ -98,5 +98,8 @@ export class PracticePlanPage implements OnInit {
     this.showStartTime = !this.showStartTime
   }
 
-
+  updateTime() {
+    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id, { start: this.startTime })
+  }
+ 
 }
