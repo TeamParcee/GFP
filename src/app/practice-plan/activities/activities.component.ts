@@ -7,6 +7,7 @@ import { nextTick } from 'q';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { EditActivityPage } from './edit-activity/edit-activity.page';
 import * as moment from 'moment';
+import { ViewActivityPage } from './view-activity/view-activity.page';
 
 @Component({
   selector: 'app-activities',
@@ -74,5 +75,9 @@ export class ActivitiesComponent implements OnInit {
 
   editActivity(activity) {
     this.helper.openModal(EditActivityPage, { activity: activity, currentWeek: this.currentWeek, currentDay: this.currentDay })
+  }
+
+  viewActivity(activity) {
+    this.helper.openModal(ViewActivityPage, { activity: activity })
   }
 }

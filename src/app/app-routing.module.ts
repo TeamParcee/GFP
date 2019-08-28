@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'news', loadChildren: './news/news.module#NewsPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'edit-activity', loadChildren: './practice-plan/activities/edit-activity/edit-activity.module#EditActivityPageModule' },
+  { path: 'view-activity', loadChildren: './practice-plan/activities/view-activity/view-activity.module#ViewActivityPageModule' },
 
 ];
 

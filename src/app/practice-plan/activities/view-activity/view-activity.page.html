@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>View Activity</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngIf="activity">
+    <ion-card-header padding>
+      <ion-card-title> {{  activity.name }}</ion-card-title>
+      <ion-card-subtitle> {{   (!activity.duration) ? 0 :activity.duration }} minutes</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content padding [innerHTML]="activity.notes">
+    </ion-card-content>
+  </ion-card>
+</ion-content>

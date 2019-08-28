@@ -1,7 +1,7 @@
 <ion-list>
   <ion-item-divider>Activities</ion-item-divider>
-  <ion-item *ngFor="let activity of activities">
-    <ion-label>
+  <ion-item  *ngFor="let activity of activities">
+    <ion-label (click)="viewActivity(activity)">
       {{ activity.name }}
     <p> {{ activity.duration }} minutes - {{ (activity.start) ? (activity.start | date: 'h:mm a') : "No Start Time"}}</p>
     </ion-label>
