@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'edit-activity', loadChildren: './practice-plan/activities/edit-activity/edit-activity.module#EditActivityPageModule' },
   { path: 'view-activity', loadChildren: './practice-plan/activities/view-activity/view-activity.module#ViewActivityPageModule' },  { path: 'usa-drills', loadChildren: './drill-library/usa-drills/usa-drills.module#UsaDrillsPageModule' },
   { path: 'my-drills', loadChildren: './drill-library/my-drills/my-drills.module#MyDrillsPageModule' },
+  { path: 'view-drill', loadChildren: './drill-library/view-drill/view-drill.module#ViewDrillPageModule' },
 
 
 ];

@@ -15,6 +15,7 @@ import { EditActivityPage } from './practice-plan/activities/edit-activity/edit-
 import { FormsModule } from '@angular/forms';
 import { QuillModule,  } from 'ngx-quill'
 import { ViewActivityPage } from './practice-plan/activities/view-activity/view-activity.page';
+import { ViewDrillPage } from './drill-library/view-drill/view-drill.page';
 
  // Your web app's Firebase configuration
  var firebaseConfig = {
@@ -29,8 +30,8 @@ import { ViewActivityPage } from './practice-plan/activities/view-activity/view-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 @NgModule({
-  declarations: [AppComponent, WeeksComponent, DaysComponent, EditActivityPage, ViewActivityPage],
-  entryComponents: [WeeksComponent, DaysComponent, EditActivityPage, ViewActivityPage],
+  declarations: [AppComponent, WeeksComponent, DaysComponent, EditActivityPage, ViewActivityPage, ViewDrillPage],
+  entryComponents: [WeeksComponent, DaysComponent, EditActivityPage, ViewActivityPage, ViewDrillPage],
   imports: [
     BrowserModule, 
     QuillModule.forRoot(),

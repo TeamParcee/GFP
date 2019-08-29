@@ -1,5 +1,11 @@
-
-
 <ion-content>
-
+  <ion-searchbar></ion-searchbar>
+  <ion-list>
+    <ion-item (click)="viewDrill(drill)" *ngFor="let drill of drills">
+      <ion-label>
+        {{ drill.Drill }}
+        <p>{{ drill.Position }} </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
