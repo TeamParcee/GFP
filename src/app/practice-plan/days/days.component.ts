@@ -21,13 +21,18 @@ export class DaysComponent implements OnInit {
 
   ) { }
 
+  user; 
+  
   ngOnInit() {
 
   }
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+    await this.getUser();
     this.getDays();
   }
-
+async getUser(){
+  this.user = await this.userService.getUserData()
+}
   newDay(){
     if(this.currentWeek == undefined){
       this.helper.okAlert("Select Week", "Please select a week.")
@@ -47,7 +52,7 @@ export class DaysComponent implements OnInit {
 
   }
   getDays() {
-    firebase.firestore().collection("/users/" + this.userService.user.coach + "/weeks/" + this.currentWeek.weekId + "/days")
+    firebase.firestore().collection("/users/" + this.user.coach + "/weeks/" + this.currentWeek.weekId + "/days")
       .orderBy("day")
       .onSnapshot((daySnap) => {
         let days = [];
@@ -59,7 +64,7 @@ export class DaysComponent implements OnInit {
   }
   getLastDay() {
     return new Promise((resolve) => {
-      return firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks/"  + this.currentWeek.weekId + "/days")
+      return firebase.firestore().collection("/users/" + this.user.uid + "/weeks/"  + this.currentWeek.weekId + "/days")
         .orderBy("day")
         .onSnapshot((daySnap) => {
           let days = [];

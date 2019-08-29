@@ -24,7 +24,7 @@ export class SelectCoachPage implements OnInit {
 
   coaches;
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getCoaches()
   }
   async selectCoach(coach) {
@@ -32,29 +32,29 @@ export class SelectCoachPage implements OnInit {
     this.helper.confirmationAlert("Select Coach", "Are you sure you want to select " + coach.fname + " " + coach.lname + " as your coach", { denyText: "Cancel", confirmText: "Select Coach" })
       .then(async (result) => {
         if (result) {
-          let user = this.userService.user;
+          firebase.auth().onAuthStateChanged(async (user) => {
+            let userData: any = await this.userService.getUserFromUid(user.uid);
+            if (userData) {
+              userData.coach = coach.uid;
+              this.firebaseService.updateDocument("/users/" + user.uid, userData).then(() => {
+                this.navCtrl.navigateForward("/tabs/home")
+              })
+            }
 
-          user = await this.userService.getUserFromUid(user.uid);
-          if (user) {
-            user.coach = coach.uid;
-            this.firebaseService.updateDocument("/users/" + user.uid, user).then(() => {
-              this.navCtrl.navigateForward("/tabs/home")
-            })
-          }
-
+          })
         }
       })
   }
 
-  getCoaches(){
+  getCoaches() {
     firebase.firestore().collection("/users/")
-    .where("isCoach", "==", true)
-    .onSnapshot((userSnap)=>{
-      let users = [];
-      userSnap.forEach((user)=>{
-        users.push(user.data())
+      .where("isCoach", "==", true)
+      .onSnapshot((userSnap) => {
+        let users = [];
+        userSnap.forEach((user) => {
+          users.push(user.data())
+        })
+        this.coaches = users;
       })
-      this.coaches = users;
-    })
   }
 }

@@ -28,49 +28,82 @@ export class ActivitiesComponent implements OnInit {
   activities;
   startTime;
   date;
+  orderArray;
+  user;
+
+
+  async getUser(){
+    this.user = await this.userService.getUserData();
+  }
+  async ionViewWillEnter(){
+    
+  }
   async ngOnInit() {
+    await this.getUser()
     await this.getCurrentWeek();
+      firebase.firestore().collection("/users/" + this.userService.user.uid + "/utility/").onSnapshot(()=>{
+        this.getActivities();
+      })
+   
   }
 
 
 
   async getCurrentDay() {
-
-    firebase.firestore().doc("/users/" + this.userService.user.uid + "/utility/currentDay/").onSnapshot(async () => {
-      this.currentDay = await this.activityService.getCurrentDay();
-      this.getActivities();
-      this.activityService.getDate(this.currentWeek.weekId, this.currentDay.id);
-
+    return new Promise((resolve)=>{
+      console.log("here 2");
+      return firebase.firestore().doc("/users/" + this.userService.user.uid + "/utility/currentDay/").onSnapshot(async () => {
+        this.currentDay = await this.activityService.getCurrentDay();
+        this.getActivities();
+        if(this.currentDay){
+          this.activityService.getDate(this.currentWeek.weekId, this.currentDay.id);
+        }
+       
+        return resolve()
+      })
     })
+   
 
   }
 
   async getCurrentWeek() {
-    firebase.firestore().doc("/users/" + this.userService.user.uid + "/utility/currentWeek/").onSnapshot(async () => {
-      this.currentWeek = await this.activityService.getCurrentWeek();
-      this.getCurrentDay();
+    return new Promise((resolve)=>{
+      return firebase.firestore().doc("/users/" + this.userService.user.uid + "/utility/currentWeek/").onSnapshot(async () => {
+        this.currentWeek = await this.activityService.getCurrentWeek();
+        this.getCurrentDay().then(()=>{
+          return resolve();
+        })
+        
+      })
     })
+   
 
   }
 
   getActivities() {
-    firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id + "/activities")
+      firebase.firestore().collection("/users/" + this.user.coach + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id + "/activities")
       .orderBy("order")
       .onSnapshot((activitySnap) => {
         let activities = [];
-        let time = this.startTime;;
+        this.orderArray = [];
+        let time = moment(this.currentDay.start).format("LT");
         let minutes = 0;
+        let count = 0;
         activitySnap.forEach((activity) => {
+          count = count + 1;
           let a = activity.data();
           a.start = this.getTimeOfEvent(time, minutes);
-          a.date = this.date;
+          a.date = this.currentDay.date;
           activities.push(a);
-
-          time = a.time;
+          this.orderArray.push({ order: count, id: a.id });
+          time = a.start;
           minutes = a.duration;
         })
         this.activities = activities;
       })
+    
+      
+
 
   }
   newActivity() {
@@ -79,7 +112,7 @@ export class ActivitiesComponent implements OnInit {
       return
     }
     let activity = new Activity(100, "New Activity", 0, "", "", "");
-    this.firebaseService.addDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id + "/activities", activity);
+    this.firebaseService.addDocument("/users/" + this.user.coach + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id + "/activities", activity);
   }
 
   editActivity(activity) {
@@ -91,7 +124,31 @@ export class ActivitiesComponent implements OnInit {
   }
 
   getTimeOfEvent(time, minutes) {
-    return moment(time, "hh:mm a").add('minutes', minutes).format('LT')
+    let x = moment(time, "hh:mm a").add('minutes', minutes).format('LT');
+    return x;
   }
 
+  reorderItems(ev) {
+    let from = ev.detail.from;
+    let to = ev.detail.to;
+    let draggedItem = this.orderArray.splice(from, 1)[0];
+    this.orderArray.splice(to, 0, draggedItem);
+    let count = 0;
+    this.orderArray.forEach((item) => {
+      count = count + 1;
+      item.order = count;
+
+    })
+    ev.detail.complete();
+
+    this.updateOrder();
+
+  }
+
+  updateOrder() {
+
+    this.orderArray.forEach((item) => {
+      firebase.firestore().doc("/users/" + this.user.coach + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id + "/activities/" + item.id).update({ order: item.order })
+    })
+  }
 }

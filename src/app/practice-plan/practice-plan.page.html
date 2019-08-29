@@ -1,17 +1,51 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons *ngIf="showTimer" slot="start">
+      <ion-button (click)="stopTimer()">
+        Stop Timer
+      </ion-button>
+    </ion-buttons>
     <ion-title>Practice Plan</ion-title>
+    <ion-buttons  *ngIf="!showTimer" slot="end">
+      <ion-button (click)="runTimer()">
+        <ion-icon name="timer"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid>
+    <ion-row *ngIf="showTimer">
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title> {{ (nextActivity?.time) ? nextActivity.time : "Getting Activity..." }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>
+              <p>Next Activity: <b>{{ nextActivity?.name }} </b></p>
+              <p> Start Time: <b>{{ nextActivity?.start }}</b></p>
+
+            </ion-label>
+
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!showTimer">
+
     <ion-row>
       <ion-col>
-        <ion-button  *ngIf="showSelectDate" size="small" fill="clear" (click)="checkDay()">{{ (date) ? date : "Choose Date" }}</ion-button>
+        <ion-button *ngIf="showSelectDate" size="small" fill="clear" (click)="checkDay()">
+          {{ (date) ? date : "Choose Date" }}</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button  *ngIf="showSelectTime" size="small" fill="clear" (click)="checkStartTime()">{{ (startTime) ? (startTime | date: 'h:mm a') : "Start Time" }}</ion-button>
+        <ion-button *ngIf="showSelectTime" size="small" fill="clear" (click)="checkStartTime()">
+          {{ (startTime) ? (startTime | date: 'h:mm a') : "Start Time" }}</ion-button>
       </ion-col>
       <ion-col>
         <ion-button size="small" (click)="viewDays()" fill="clear">Day {{ currentDay?.day }}</ion-button>
@@ -27,9 +61,10 @@
 
         <ion-item *ngIf="showStartTime">
           <ion-label>Start Time</ion-label>
-          <ion-datetime (ionChange)="updateTime()" [(ngModel)]="startTime"  minuteValues="00, 15, 30, 45" pickerFormat="hh:mm a" displayFormat="hh:mm a"></ion-datetime>
+          <ion-datetime (ionChange)="updateTime()" [(ngModel)]="startTime" minuteValues="00, 15, 30, 45"
+            pickerFormat="hh:mm a" displayFormat="hh:mm a"></ion-datetime>
         </ion-item>
-        
+
       </ion-col>
     </ion-row>
     <ion-row>

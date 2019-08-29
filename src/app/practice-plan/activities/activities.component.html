@@ -1,11 +1,21 @@
 <ion-list>
-  <ion-item-divider>Activities</ion-item-divider>
-  <ion-item  *ngFor="let activity of activities">
-    <ion-label (click)="viewActivity(activity)">
-      {{ activity.name }}
-    <p> {{ activity.duration }} minutes - {{ (activity.start) ? (activity.start | date: 'h:mm a') : "No Start Time"}}</p>
-    </ion-label>
-    <ion-note slot="end" color="dark"  (click)="editActivity(activity)">Edit</ion-note>
-  </ion-item>
+  <ion-item-divider>
+    <ion-button  (click)="changeOrder = !changeOrder" color="dark" fill="clear">
+        <ion-icon slot="icon-only" name="reorder"></ion-icon>
+    </ion-button>
+      
+    Activities</ion-item-divider>
+
+  <ion-reorder-group (ionItemReorder)="reorderItems($event)" disabled="false">
+    <ion-item *ngFor="let activity of activities">
+      <ion-reorder *ngIf="changeOrder"></ion-reorder>
+      <ion-label (click)="viewActivity(activity)">
+        {{ activity.name }}
+        <p> {{ activity.duration }} minutes - {{ (activity.start) ? activity.start  : "No Start Time"}}</p>
+      </ion-label>
+      <ion-note slot="end" color="dark" (click)="editActivity(activity)">Edit</ion-note>
+    </ion-item>
+  </ion-reorder-group>
+
   <ion-button fill="clear" (click)="newActivity()">New Activity</ion-button>
 </ion-list>

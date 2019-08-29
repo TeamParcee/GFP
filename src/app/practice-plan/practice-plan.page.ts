@@ -8,6 +8,7 @@ import { DaysComponent } from './days/days.component';
 import * as moment from 'moment';
 import { FirebaseService } from '../services/firebase.service';
 import { Subject } from 'rxjs';
+import { TimerService } from '../services/timer.service';
 
 @Component({
   selector: 'app-practice-plan',
@@ -21,6 +22,8 @@ export class PracticePlanPage implements OnInit {
     private activityService: ActivityService,
     private helper: HelperService,
     private firebaseService: FirebaseService,
+    private timerService: TimerService,
+  
   ) { }
 
   ngOnInit() {
@@ -34,13 +37,23 @@ export class PracticePlanPage implements OnInit {
   showSelectTime;
   showSelectDate;
   startTime;
+  nextActivity;
+  timerInterval;
+  showTimer;
+  timerStarted;
+  user;
 
   async ionViewWillEnter() {
+    await this.getUser();
     this.getCurrentWeek();
     this.getCurrentDay();
+    
   }
 
 
+ async getUser(){
+    this.user = await this.userService.getUserData()
+  }
   viewWeeks() {
     this.helper.presentPopover(event, WeeksComponent, { currentWeek: this.currentWeek })
   }
@@ -50,7 +63,7 @@ export class PracticePlanPage implements OnInit {
   }
 
   getCurrentWeek() {
-    firebase.firestore().doc("/users/" + this.userService.user.coach + "/utility/currentWeek/").onSnapshot(async () => {
+    firebase.firestore().doc("/users/" + this.userService.user.uid + "/utility/currentWeek/").onSnapshot(async () => {
       this.currentWeek = await this.activityService.getCurrentWeek();
     })
   }
@@ -77,7 +90,7 @@ export class PracticePlanPage implements OnInit {
   async dateSelected(event) {
 
     let date = moment(event.toString()).format('ll');
-    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id, { date: date })
+    this.firebaseService.updateDocument("/users/" + this.user.coach + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id, { date: date })
     this.showCalendar = false;
     this.date = date;
   }
@@ -99,7 +112,26 @@ export class PracticePlanPage implements OnInit {
   }
 
   updateTime() {
-    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id, { start: this.startTime })
+    this.firebaseService.updateDocument("/users/" + this.user.coach + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id, { start: this.startTime })
+    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/utility/currentDay/", { start: this.startTime })
   }
- 
+  runTimer(){
+  
+    this.showTimer = true;
+    if (!this.timerStarted){
+      this.timerStarted = true;
+      this.timerService.startPlan();  
+      this.timerInterval = setInterval(()=>{
+        this.nextActivity = this.timerService.nextActivity;
+      }, 1000)
+    }
+      
+  }
+  stopTimer(){
+    this.timerService.stopPlan();
+    clearInterval(this.timerInterval);
+    this.showTimer = false;
+    this.timerStarted = false;
+  }
+  
 }

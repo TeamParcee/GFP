@@ -28,7 +28,12 @@ export class ActivityService {
   startTimeOb;
   currentDay;
   currentWeek;
+  activities;
+  nextActivity;
+  user;
 
+  async getUser(){
+  }
   getWeekCount() {
     firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks/").onSnapshot((weekSnap) => {
       this.weekCount = (weekSnap.size) ? weekSnap.size : 0;
@@ -47,13 +52,13 @@ export class ActivityService {
   }
 
   async newDay(weekId, start, date) {
-    console.log(await this.getDayCount(weekId));
     this.firebaseService.addDocument("/users/" + this.userService.user.uid + "/weeks/" + weekId + "/days", { day: (await this.getDayCount(weekId) + 1), start: start, date: date })
   }
 
-  getWeekId(week) {
-    return new Promise((resolve) => {
-      return firebase.firestore().collection("/users/" + this.userService.user.coach + "/weeks/")
+ async getWeekId(week) {
+    return new Promise(async(resolve) => {
+      let user:any = await this.userService.getUserData();
+      return firebase.firestore().collection("/users/" + user.coach + "/weeks/")
         .where("week", "==", week)
         .get().then((weekSnap) => {
           let weeks = [];
@@ -66,8 +71,9 @@ export class ActivityService {
   }
 
   getDayId(weekId, day) {
-    return new Promise((resolve) => {
-      return firebase.firestore().collection("/users/" + this.userService.user.coach + "/weeks/" + weekId + "/days")
+    return new Promise(async (resolve) => {
+      let user:any = await this.userService.getUserData();
+      return firebase.firestore().collection("/users/" + user.coch + "/weeks/" + weekId + "/days")
         .where("day", "==", day)
         .get().then((daySnap) => {
           let days = [];
@@ -140,15 +146,17 @@ export class ActivityService {
   }
   getCurrentDay() {
     return new Promise(async(resolve) => {
+      let user:any = await this.userService.getUserData();
       let day:any = await this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/utility/currentDay/");
       let week:any = await this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/utility/currentWeek/");
-      return resolve(this.firebaseService.getDocument("/users/" + this.userService.user.uid + "/weeks/" + week.weekId + "/days/" + day.dayId))
+      return resolve(this.firebaseService.getDocument("/users/" + user.coach + "/weeks/" + week.weekId + "/days/" + day.dayId))
     })
   }
 
   getDate(weekId, dayId) {
-    return new Promise((resolve) => {
-      return firebase.firestore().doc("/users/" + this.userService.user.coach + "/weeks/" + weekId + "/days/" + dayId).onSnapshot((snapshot) => {
+    return new Promise(async (resolve) => {
+      let user:any = await this.userService.getUserData();
+      return firebase.firestore().doc("/users/" + user.coach + "/weeks/" + weekId + "/days/" + dayId).onSnapshot((snapshot) => {
         if (snapshot.exists) {
           let date = snapshot.data();
           return resolve(date)

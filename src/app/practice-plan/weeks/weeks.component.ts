@@ -22,11 +22,21 @@ export class WeeksComponent implements OnInit {
 
   weeks;
   currentWeek;
-
+  user;
   ngOnInit() { }
 
   async ionViewWillEnter() {
+    await this.getUser();
     this.getWeeks();
+   
+  }
+
+  async getUser() {
+    return new Promise(async (resolve)=>{
+      this.user = await this.userService.getUserData()
+      return resolve()
+    })
+    
   }
   newWeek() {
     this.activityService.newWeek()
@@ -42,8 +52,7 @@ export class WeeksComponent implements OnInit {
 
   }
   getWeeks() {
-    console.log(this.userService.user.coach);
-    firebase.firestore().collection("/users/" + this.userService.user.coach + "/weeks")
+    firebase.firestore().collection("/users/" + this.user.coach + "/weeks")
       .orderBy("week")
       .onSnapshot((weekSnap) => {
         let weeks = [];
@@ -56,7 +65,7 @@ export class WeeksComponent implements OnInit {
 
   getLastWeek() {
     return new Promise((resolve) => {
-      return firebase.firestore().collection("/users/" + this.userService.user.uid + "/weeks")
+      return firebase.firestore().collection("/users/" + this.user.uid + "/weeks")
         .orderBy("week")
         .onSnapshot((weekSnap) => {
           let weeks = [];
@@ -69,7 +78,7 @@ export class WeeksComponent implements OnInit {
     })
   }
 
-  selectWeek(weekId, week){
+  selectWeek(weekId, week) {
     this.activityService.selectWeek(weekId, week);
     this.activityService.selectDay(0, 0)
     this.helper.closePopover();

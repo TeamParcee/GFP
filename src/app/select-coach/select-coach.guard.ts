@@ -33,8 +33,7 @@ export class SelectCoachGuard implements CanActivate {
     return new Promise(async (resolve) => {
       firebase.auth().onAuthStateChanged(async(u) => {
         if (u) {
-          let user:any = await this.userService.getUserData(u);
-          console.log(user)
+          let user:any = await this.userService.getUserData();
           if (user.coach) {
             return resolve(true)
           } else {
