@@ -15,7 +15,9 @@ const routes: Routes = [
   { path: 'news', loadChildren: './news/news.module#NewsPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canLoad: [AuthGuard], canActivate: [SelectCoachGuard] },
   { path: 'edit-activity', loadChildren: './practice-plan/activities/edit-activity/edit-activity.module#EditActivityPageModule' },
-  { path: 'view-activity', loadChildren: './practice-plan/activities/view-activity/view-activity.module#ViewActivityPageModule' },
+  { path: 'view-activity', loadChildren: './practice-plan/activities/view-activity/view-activity.module#ViewActivityPageModule' },  { path: 'usa-drills', loadChildren: './drill-library/usa-drills/usa-drills.module#UsaDrillsPageModule' },
+  { path: 'my-drills', loadChildren: './drill-library/my-drills/my-drills.module#MyDrillsPageModule' },
+
 
 ];
 

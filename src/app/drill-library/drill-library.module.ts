@@ -10,7 +10,31 @@ import { DrillLibraryPage } from './drill-library.page';
 const routes: Routes = [
   {
     path: '',
-    component: DrillLibraryPage
+    component: DrillLibraryPage,
+    children: [
+      {
+        path: 'usaDrills',
+        children: [
+          {
+            path: '',
+            loadChildren: './usa-drills/usa-drills.module#UsaDrillsPageModule'
+          }
+        ]
+      }, {
+        path: 'myDrills',
+        children: [
+          {
+            path: '',
+            loadChildren: './my-drills/my-drills.module#MyDrillsPageModule'
+          }
+        ]
+      },
+      {
+        path: '',
+        redirectTo: 'usaDrills',
+        pathMatch: 'full'
+      }
+    ]
   }
 ];
 

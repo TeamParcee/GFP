@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DrillsService } from '../services/drills.service';
 
 @Component({
   selector: 'app-drill-library',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DrillLibraryPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private drillService: DrillsService
+  ) { }
 
   ngOnInit() {
   }
+
+  ionViewWillEnter(){
+    console.log(this.usaDrills)
+  }
+  usaDrills = this.drillService.drillData;
+
 
 }
