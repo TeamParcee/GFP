@@ -24,6 +24,9 @@ export class TimerService {
   user;
 
   
+  async getUser(){
+    this.user = await this.userService.getUserData();
+  }
   startPlan() {
     this.firebaseService.setDocument("users/" + this.userService.user.uid + "/utilities/activeActivity", {active: true});
     this.length = this.activityService.activities.length;

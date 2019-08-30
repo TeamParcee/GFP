@@ -1,9 +1,43 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Schedule</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="newItem()">
+        <ion-icon slot="start" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
 
+    <ion-button (click)="viewPastEvents()" fill="clear">View past events</ion-button>
+  
+    <ion-item-divider *ngIf="nextItem">Next Event</ion-item-divider>
+    <ion-card *ngIf="nextItem">
+      <ion-card-header>
+        <ion-card-title>{{ nextItem.itemType }}</ion-card-title>
+        <ion-card-subtitle> {{ nextItem.datetime | fromNow }}</ion-card-subtitle>
+        <ion-card-subtitle> {{ nextItem.location }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          {{ nextItem.notes }}
+        </p>
+      </ion-card-content>
+
+    </ion-card>
+
+    <ion-item-divider>Future Events</ion-item-divider>
+    <ion-item *ngIf="schedule?.length == 0" text-center text-wrap lines="none">There are currently no future events</ion-item>
+    <ion-item (click)="viewEvent(event)" *ngFor="let event of schedule">
+      <ion-label>
+        <h2> {{ event.itemType }}</h2>
+        <p>{{ event.datetime | fromNow   }}</p>
+        <p>{{ event.location   }}</p>
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
 </ion-content>

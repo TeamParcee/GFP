@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>View Schedule Item</ion-title>
+      <ion-buttons slot="start">
+        <ion-button (click)="close()">
+          <ion-icon slot="start" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+      <ion-card *ngIf="item">
+        <ion-card-header>
+          <ion-card-title>{{ item.itemType }}</ion-card-title>
+          <ion-card-subtitle> {{ item.datetime | fromNow }}</ion-card-subtitle>
+          <ion-card-subtitle> {{ item.location }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p>
+            {{ item.notes }}
+          </p>
+        </ion-card-content>
+  
+      </ion-card>
+
+  </ion-content>

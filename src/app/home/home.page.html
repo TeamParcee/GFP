@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Home</ion-title>
+
+    <ion-title>
+      Home
+    </ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/profile">
         <ion-icon slot="icon-only" name="contact"></ion-icon>
@@ -10,5 +13,61 @@
 </ion-header>
 
 <ion-content>
+<ion-list-header *ngIf="user?.isCoach" padding>Welcome Coach {{ user?.lname }}</ion-list-header>
+  <ion-grid *ngIf="currentEvent" style="height: 60%" padding-none>
+    <ion-row justify-content-center align-items-center style="height: 100%">
+      <ion-col style="margin: auto" padding-none size-sm="4" offset-sm="4">
+        <ion-card style="vertical-align: middle; ">
+          <ion-card-content>
+            <ion-label text-center>
+              <h2 *ngIf="!currentEvent">No Active Event Groups</h2>
+              <h2>{{ currentEvent?.name }}</h2>
+            </ion-label>
+      
+          </ion-card-content>
+          <ion-card-header text-center>
+            <ion-card-title>{{ time }}</ion-card-title>
+          </ion-card-header>
 
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-list-header>Next Event</ion-list-header>
+          <ion-card *ngIf="nextItem">
+            <ion-card-header>
+              <ion-card-title>{{ nextItem.itemType}}</ion-card-title>
+              <ion-card-subtitle>{{ nextItem.datetime | fromNow }}</ion-card-subtitle>
+              <ion-card-subtitle>{{ nextItem.location }}k</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              {{ nextItem.notes }}
+            </ion-card-content>
+          </ion-card>
+          <ion-button routerLink="/tabs/schedule" fill="clear">View Schedule</ion-button>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-list-header>Team News</ion-list-header>
+          <ion-item>
+            <ion-label>
+              <h2>Please complete survey</h2>
+                <p>read more</p>
+            </ion-label>
+          </ion-item>
+          <ion-button routerLink="/tabs/news" fill="clear">View other news</ion-button>
+        </ion-list>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

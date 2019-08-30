@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="close()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>New Schedule Item</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="stacked">Type of Event</ion-label>
+            <ion-input [(ngModel)]="itemType"></ion-input>
+        </ion-item>
+        <ion-item>
+                <ion-label position="stacked">Location</ion-label>
+                <ion-input [(ngModel)]="location"></ion-input>
+            </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Date / Time</ion-label>
+            <ion-datetime pickerFormat="MMM DD hh:mm a" displayFormat="MMM DD hh:mm a" [(ngModel)]="datetime"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Notes</ion-label>
+            <ion-textarea auto-grow="true" [(ngModel)]="notes"></ion-textarea>
+        </ion-item>
+        <ion-button [disabled]="!itemType || !datetime || !notes || !location" expand="block" margin-top (click)="save()">Save</ion-button>
+    </ion-list>
+</ion-content>

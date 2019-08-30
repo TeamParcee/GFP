@@ -100,6 +100,7 @@ export class ActivitiesComponent implements OnInit {
           minutes = a.duration;
         })
         this.activities = activities;
+        this.activityService.activities = activities;
       })
     
       
