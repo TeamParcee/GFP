@@ -1,5 +1,7 @@
 {
   "name": "GFP",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

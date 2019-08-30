@@ -17,6 +17,11 @@ import { QuillModule,  } from 'ngx-quill'
 import { ViewActivityPage } from './practice-plan/activities/view-activity/view-activity.page';
 import { ViewDrillPage } from './drill-library/view-drill/view-drill.page';
 
+
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { Vibration } from '@ionic-native/vibration/ngx';
+
  // Your web app's Firebase configuration
  var firebaseConfig = {
   apiKey: "AIzaSyDPAW5x5YwQ_lsuy6iO8O5JepFBzrJzLbw",
@@ -41,6 +46,9 @@ firebase.initializeApp(firebaseConfig);
   providers: [
     StatusBar,
     SplashScreen,
+    BackgroundMode,
+    LocalNotifications,
+    Vibration,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

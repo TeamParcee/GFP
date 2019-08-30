@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-view-drill',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewDrillPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private helper: HelperService,
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(
+    
+  ) {
   }
   drill;
+
+
+  close(){
+    this.helper.closeModal();
+  }
 }
