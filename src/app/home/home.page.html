@@ -14,26 +14,7 @@
 
 <ion-content>
 <ion-list-header *ngIf="user?.isCoach" padding>Welcome Coach {{ user?.lname }}</ion-list-header>
-  <ion-grid *ngIf="currentEvent" style="height: 60%" padding-none>
-    <ion-row justify-content-center align-items-center style="height: 100%">
-      <ion-col style="margin: auto" padding-none size-sm="4" offset-sm="4">
-        <ion-card style="vertical-align: middle; ">
-          <ion-card-content>
-            <ion-label text-center>
-              <h2 *ngIf="!currentEvent">No Active Event Groups</h2>
-              <h2>{{ currentEvent?.name }}</h2>
-            </ion-label>
-      
-          </ion-card-content>
-          <ion-card-header text-center>
-            <ion-card-title>{{ time }}</ion-card-title>
-          </ion-card-header>
 
-        </ion-card>
-
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 
   <ion-grid>
     <ion-row>
@@ -58,10 +39,10 @@
       <ion-col>
         <ion-list>
           <ion-list-header>Team News</ion-list-header>
-          <ion-item>
+          <ion-item *ngIf="news">
             <ion-label>
-              <h2>Please complete survey</h2>
-                <p>read more</p>
+              <h2>{{ news.title }}</h2>
+                <p>{{ news.created }}</p>
             </ion-label>
           </ion-item>
           <ion-button routerLink="/tabs/news" fill="clear">View other news</ion-button>

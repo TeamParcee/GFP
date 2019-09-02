@@ -1,6 +1,6 @@
 <ion-list>
   <ion-item-divider>
-    <ion-button  (click)="changeOrder = !changeOrder" color="dark" fill="clear">
+    <ion-button  *ngIf="user?.isCoach"  (click)="changeOrder = !changeOrder" color="dark" fill="clear">
         <ion-icon slot="icon-only" name="reorder"></ion-icon>
     </ion-button>
       
@@ -13,9 +13,9 @@
         {{ activity.name }}
         <p> {{ activity.duration }} minutes - {{ (activity.start) ? activity.start  : "No Start Time"}}</p>
       </ion-label>
-      <ion-note slot="end" color="dark" (click)="editActivity(activity)">Edit</ion-note>
+      <ion-note   *ngIf="user?.isCoach" slot="end" color="dark" (click)="editActivity(activity)">Edit</ion-note>
     </ion-item>
   </ion-reorder-group>
 
-  <ion-button fill="clear" (click)="newActivity()">New Activity</ion-button>
+  <ion-button  *ngIf="user?.isCoach" fill="clear" (click)="newActivity()">New Activity</ion-button>
 </ion-list>

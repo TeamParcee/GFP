@@ -18,6 +18,8 @@ const routes: Routes = [
   { path: 'view-activity', loadChildren: './practice-plan/activities/view-activity/view-activity.module#ViewActivityPageModule' },  { path: 'usa-drills', loadChildren: './drill-library/usa-drills/usa-drills.module#UsaDrillsPageModule' },
   { path: 'my-drills', loadChildren: './drill-library/my-drills/my-drills.module#MyDrillsPageModule' },
   { path: 'view-drill', loadChildren: './drill-library/view-drill/view-drill.module#ViewDrillPageModule' },
+  { path: 'add-drill', loadChildren: './drill-library/add-drill/add-drill.module#AddDrillPageModule' },
+  { path: 'edit-drill', loadChildren: './drill-library/edit-drill/edit-drill.module#EditDrillPageModule' },
 
 
 ];

@@ -14,7 +14,7 @@
     <ion-item (click)="viewNews(item)" *ngFor="let item of news">
       <ion-label>
           {{ item.title }}
-          <p> {{ item.created}}</p>
+          <p>Created: {{ item.created}}</p>
       </ion-label>
     </ion-item>
   </ion-list>

@@ -2,10 +2,10 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button fill="clear" (click)="newDay()">New</ion-button>
+          <ion-button   *ngIf="user?.isCoach" fill="clear" (click)="newDay()">New</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button color="danger" fill="clear" (click)="deleteDay()">Delete</ion-button>
+          <ion-button   *ngIf="user?.isCoach" color="danger" fill="clear" (click)="deleteDay()">Delete</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>

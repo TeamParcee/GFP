@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AlertController, ToastController, LoadingController, PopoverController, ModalController } from '@ionic/angular';
 import { AlertInput } from '@ionic/core';
-import { resolve } from 'url';
+import { TimerService } from './timer.service';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +50,24 @@ export class HelperService {
     })
   }
 
+  stopTimerAlert(activity){
+    return new Promise((resolve)=>{
+      this.alertCtrl.create({
+        header: "Activity Started",
+        message: activity.name + " has started",
+        buttons: [{
+          text: "OK",
+          role: "cancel",
+          handler: () =>{
+            return resolve(true)
+          }
+        }]
+      }).then((alert)=>{
+        alert.present();
+      })
+    })
+    
+  }
   confirmationAlert(header: string, message: string, buttons: { denyText: string, confirmText: string }) {
 
     return new Promise((resolve) => {

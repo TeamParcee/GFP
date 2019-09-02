@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { FirebaseService } from '../services/firebase.service';
 import { Subject } from 'rxjs';
 import { TimerService } from '../services/timer.service';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-practice-plan',
@@ -23,6 +24,7 @@ export class PracticePlanPage implements OnInit {
     private helper: HelperService,
     private firebaseService: FirebaseService,
     private timerService: TimerService,
+    private background: BackgroundMode,
   
   ) { }
 
@@ -116,7 +118,7 @@ export class PracticePlanPage implements OnInit {
     this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/utility/currentDay/", { start: this.startTime })
   }
   runTimer(){
-  
+  this.background.enable();
     this.showTimer = true;
     if (!this.timerStarted){
       this.timerStarted = true;
@@ -128,6 +130,7 @@ export class PracticePlanPage implements OnInit {
       
   }
   stopTimer(){
+    this.background.disable();
     this.timerService.stopPlan();
     clearInterval(this.timerInterval);
     this.showTimer = false;

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { FirebaseService } from './firebase.service';
 import { ActivityService } from './activity.service';
+import { Vibration } from '@ionic-native/vibration/ngx';
+import { HelperService } from './helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +11,16 @@ import { ActivityService } from './activity.service';
 export class TimerService {
 
   constructor(
+    private vibration: Vibration,
     private userService: UserService,
     private firebaseService: FirebaseService,
     private activityService: ActivityService,
+    private helper: HelperService,
   ) { }
 
-  timerInterval
+  showAlert;
+  timerInterval;
+  vibrationInterval;
   activeTime;
   activeActivity;
   count = 0;
@@ -22,7 +28,7 @@ export class TimerService {
   length;
   nextActivity;
   user;
-
+  stopAlert = false;
   
   async getUser(){
     this.user = await this.userService.getUserData();
@@ -31,7 +37,8 @@ export class TimerService {
     this.firebaseService.setDocument("users/" + this.userService.user.uid + "/utilities/activeActivity", {active: true});
     this.length = this.activityService.activities.length;
     if (this.length > this.count) {
-      this.getTimerCount(this.activityService.activities[this.count])
+      this.getTimerCount(this.activityService.activities[this.count]);
+ 
     } else {
       this.activeActivity = null;
       clearInterval(this.timerInterval);
@@ -40,6 +47,7 @@ export class TimerService {
 
   }
   getTimerCount(activity) {
+    
     this.timerInterval = setInterval(() => {
       let datetime = activity.date + " " + activity.start;
       let now = new Date().getTime();
@@ -54,11 +62,19 @@ export class TimerService {
       let time = hours + ":" + minutes + ":" + seconds;
       if (distance < 0) {
         this.activeTime = "Time Past";
+        if(this.showAlert){
+          this.startVibration();
+          this.helper.stopTimerAlert(activity).then(()=>{
+            this.stopVibration();
+            this.showAlert = true;
+          })
+        }
         this.activeActivity = activity.name;
         clearInterval(this.timerInterval);
         this.count++;
         this.startPlan();
       } else {
+        this.showAlert = true;
         this.nextActivity = {
           time: time,
           name: activity.name,
@@ -66,7 +82,17 @@ export class TimerService {
         }
       }
     }, 1000)
+  }
 
+  stopVibration(){
+    clearInterval(this.vibrationInterval);
+    
+  }
+
+  startVibration(){
+    this.vibrationInterval = setInterval(()=>{
+      this.vibration.vibrate(1000);
+    }, 2000);
   }
 
   stopPlan(){

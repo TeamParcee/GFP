@@ -37,12 +37,12 @@ export class NewsPage implements OnInit {
   }
 
   getNews() {
-    firebase.firestore().collection("/users/" + this.user.uid + "/news")
-    .orderBy("date", "desc")
+    firebase.firestore().collection("/users/" + this.user.coach  + "/news")
+    .orderBy("created", "desc")
     .onSnapshot((newSnap) => {
       let news = []
       newSnap.forEach((item) => {
-        news.push(item.data())
+        news.push(item.data());
       })
       this.news = news;
     })

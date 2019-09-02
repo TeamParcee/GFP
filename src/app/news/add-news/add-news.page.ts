@@ -38,7 +38,7 @@ export class AddNewsPage implements OnInit {
         this.firebaseService.addDocument("users/" + this.user.uid + "/news", {
           title: this.title,
           message: this.message,
-          created: moment().calendar(),
+          created: new Date().toLocaleTimeString(),
         }).then(()=>{
           this.close()
         })

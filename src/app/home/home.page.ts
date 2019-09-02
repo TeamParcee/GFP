@@ -36,22 +36,23 @@ export class HomePage implements OnInit {
   nextItem;
   vibrateInterval;
   ngOnInit() {
-    this.backgroundMode.enable();
-    this.getSchedule();
+
+    
   }
 
   async getUser() {
     this.user = await this.userService.getUserData();
   }
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
 
-    this.getUser();
-   
+    await this.getUser();
+    this.getSchedule();
+    this.getNews();
   }
 
   currentEvent;
   time;
-
+  news;
  
 
 
@@ -60,8 +61,19 @@ export class HomePage implements OnInit {
     this.navCtrl.navigateForward("/profile")
   }
 
+  getNews(){
+    firebase.firestore().collection("/users/" + this.user.coach + "/news")
+    .orderBy("created", "desc")
+    .onSnapshot((snapshot)=>{
+      let news = [];
+      snapshot.forEach((item)=>{
+        news.push(item.data())
+      })
+      this.news = news.shift();
+    })
+  }
   getSchedule() {
-    firebase.firestore().collection("schedule")
+    firebase.firestore().collection("users/" + this.user.coach + "/schedule")
       .orderBy("datetime")
       .onSnapshot((snapshot) => {
         let schedule = [];

@@ -21,6 +21,14 @@ import { ViewDrillPage } from './drill-library/view-drill/view-drill.page';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { Vibration } from '@ionic-native/vibration/ngx';
+import { ViewScheduleItemComponent } from './schedule/view-schedule-item/view-schedule-item.component';
+import { NewScheduleItemComponent } from './schedule/new-schedule-item/new-schedule-item.component';
+import { PastEventsComponent } from './schedule/past-events/past-events.component';
+import { AddNewsPage } from './news/add-news/add-news.page';
+import { ViewNewsPage } from './news/view-news/view-news.page';
+import { PipeModule } from './pipe/pipe.module';
+import { AddDrillPage } from './drill-library/add-drill/add-drill.page';
+import { EditDrillPage } from './drill-library/edit-drill/edit-drill.page';
 
  // Your web app's Firebase configuration
  var firebaseConfig = {
@@ -35,13 +43,39 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 @NgModule({
-  declarations: [AppComponent, WeeksComponent, DaysComponent, EditActivityPage, ViewActivityPage, ViewDrillPage],
-  entryComponents: [WeeksComponent, DaysComponent, EditActivityPage, ViewActivityPage, ViewDrillPage],
+  declarations:
+  [AppComponent, 
+    WeeksComponent, 
+    DaysComponent, 
+    EditActivityPage, 
+    ViewActivityPage, 
+    NewScheduleItemComponent,
+    AddNewsPage,
+    AddDrillPage,
+    EditDrillPage,
+    ViewNewsPage,
+    PastEventsComponent,
+    ViewScheduleItemComponent,
+    ViewDrillPage],
+  entryComponents: [
+    WeeksComponent, 
+    DaysComponent, 
+    NewScheduleItemComponent,
+    EditDrillPage,
+    PastEventsComponent,
+    ViewScheduleItemComponent,
+    AddNewsPage,
+    ViewNewsPage,
+    EditActivityPage, 
+    ViewActivityPage, 
+    AddDrillPage,
+    ViewDrillPage],
   imports: [
     BrowserModule, 
     QuillModule.forRoot(),
     FormsModule,
     IonicModule.forRoot(), 
+    PipeModule,
     AppRoutingModule],
   providers: [
     StatusBar,
