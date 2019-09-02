@@ -29,6 +29,7 @@ export class TimerService {
   nextActivity;
   user;
   stopAlert = false;
+  currentActivity;
   
   async getUser(){
     this.user = await this.userService.getUserData();
@@ -37,7 +38,7 @@ export class TimerService {
     this.firebaseService.setDocument("users/" + this.userService.user.uid + "/utilities/activeActivity", {active: true});
     this.length = this.activityService.activities.length;
     if (this.length > this.count) {
-      this.getTimerCount(this.activityService.activities[this.count]);
+      this.getTimerCount(this.activityService.activities[this.count], this.activityService.activities[this.count - 1] );
  
     } else {
       this.activeActivity = null;
@@ -46,8 +47,12 @@ export class TimerService {
     }
 
   }
-  getTimerCount(activity) {
+  getTimerCount(activity, currentActivity) {
     
+    if(!currentActivity){
+      currentActivity = {...activity};
+      currentActivity.name = "Time Unit First Activity"
+    }
     this.timerInterval = setInterval(() => {
       let datetime = activity.date + " " + activity.start;
       let now = new Date().getTime();
@@ -75,8 +80,12 @@ export class TimerService {
         this.startPlan();
       } else {
         this.showAlert = true;
-        this.nextActivity = {
+        this.currentActivity  = {
           time: time,
+          name: currentActivity.name,
+          start: currentActivity.start
+        }
+        this.nextActivity = {
           name: activity.name,
           start: activity.start
         }
@@ -92,7 +101,7 @@ export class TimerService {
   startVibration(){
     this.vibrationInterval = setInterval(()=>{
       this.vibration.vibrate(1000);
-    }, 2000);
+    }, 1000);
   }
 
   stopPlan(){

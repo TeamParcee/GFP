@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons *ngIf="showTimer" slot="start">
       <ion-button (click)="stopTimer()">
-        Stop Timer
+        Hide Timer
       </ion-button>
     </ion-buttons>
     <ion-title>Practice Plan</ion-title>
@@ -20,7 +20,8 @@
       <ion-col>
         <ion-card>
           <ion-card-header>
-            <ion-card-title> {{ (nextActivity?.time) ? nextActivity.time : "Getting Activity..." }}</ion-card-title>
+            <ion-card-subtitle> {{ currentActivity?.name }}</ion-card-subtitle>
+            <ion-card-title> {{ (currentActivity?.time) ? currentActivity?.time : "Getting Activity..." }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-label>

@@ -16,7 +16,6 @@ export class DrillLibraryPage implements OnInit {
   }
 
   ionViewWillEnter(){
-    console.log(this.usaDrills)
   }
   usaDrills = this.drillService.drillData;
 

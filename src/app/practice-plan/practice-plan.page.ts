@@ -40,6 +40,7 @@ export class PracticePlanPage implements OnInit {
   showSelectDate;
   startTime;
   nextActivity;
+  currentActivity;
   timerInterval;
   showTimer;
   timerStarted;
@@ -125,6 +126,7 @@ export class PracticePlanPage implements OnInit {
       this.timerService.startPlan();  
       this.timerInterval = setInterval(()=>{
         this.nextActivity = this.timerService.nextActivity;
+        this.currentActivity = this.timerService.currentActivity;
       }, 1000)
     }
       
