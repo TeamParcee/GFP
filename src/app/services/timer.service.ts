@@ -4,6 +4,7 @@ import { FirebaseService } from './firebase.service';
 import { ActivityService } from './activity.service';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { HelperService } from './helper.service';
+import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { HelperService } from './helper.service';
 export class TimerService {
 
   constructor(
+    private ringtones: NativeRingtones,
     private vibration: Vibration,
     private userService: UserService,
     private firebaseService: FirebaseService,
@@ -94,16 +96,25 @@ export class TimerService {
   }
 
   stopVibration(){
+    this.stopRingtone();
     clearInterval(this.vibrationInterval);
     
   }
 
   startVibration(){
+    this.startRingtone();
     this.vibrationInterval = setInterval(()=>{
       this.vibration.vibrate(1000);
     }, 1000);
   }
+startRingtone(){
+  this.ringtones.playRingtone('assets/ringtones/gfp.mp4');
 
+}
+
+stopRingtone(){
+  this.ringtones.stopRingtone('assets/ringtones/gfp.mp4');
+}
   stopPlan(){
     this.firebaseService.setDocument("users/" + this.userService.user.uid + "/utilities/activeActivity", {active: false})
     this.activeActivity = null;

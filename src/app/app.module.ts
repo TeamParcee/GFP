@@ -30,6 +30,8 @@ import { PipeModule } from './pipe/pipe.module';
 import { AddDrillPage } from './drill-library/add-drill/add-drill.page';
 import { EditDrillPage } from './drill-library/edit-drill/edit-drill.page';
 
+import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
+
  // Your web app's Firebase configuration
  var firebaseConfig = {
   apiKey: "AIzaSyDPAW5x5YwQ_lsuy6iO8O5JepFBzrJzLbw",
@@ -80,6 +82,7 @@ firebase.initializeApp(firebaseConfig);
   providers: [
     StatusBar,
     SplashScreen,
+    NativeRingtones,
     BackgroundMode,
     LocalNotifications,
     Vibration,
