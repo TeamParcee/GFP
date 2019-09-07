@@ -5,6 +5,7 @@ import { ActivityService } from './activity.service';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { HelperService } from './helper.service';
 import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class TimerService {
     private firebaseService: FirebaseService,
     private activityService: ActivityService,
     private helper: HelperService,
+    private nativeAudio: NativeAudio
   ) { }
 
   showAlert;
@@ -53,7 +55,7 @@ export class TimerService {
     
     if(!currentActivity){
       currentActivity = {...activity};
-      currentActivity.name = "Time Unit First Activity"
+      currentActivity.name = "Time Until First Activity"
     }
     this.timerInterval = setInterval(() => {
       let datetime = activity.date + " " + activity.start;
@@ -108,12 +110,17 @@ export class TimerService {
     }, 1000);
   }
 startRingtone(){
-  this.ringtones.playRingtone('assets/ringtones/gfp.mp4');
+  this.nativeAudio.preloadSimple('uniqueId1', '../../assets/ringtones/gfp.mp3');
+  this.nativeAudio.play('uniqueId1');
+  this.ringtones.playRingtone('../../assets/ringtones/gfp.mp3');
+
 
 }
 
 stopRingtone(){
-  this.ringtones.stopRingtone('assets/ringtones/gfp.mp4');
+  this.nativeAudio.preloadSimple('uniqueId1', '../../assets/ringtones/gfp.mp3');
+  this.nativeAudio.stop('uniqueId1');
+  this.ringtones.stopRingtone('../../assets/ringtones/gfp.mp3');
 }
   stopPlan(){
     this.firebaseService.setDocument("users/" + this.userService.user.uid + "/utilities/activeActivity", {active: false})

@@ -31,6 +31,7 @@ import { AddDrillPage } from './drill-library/add-drill/add-drill.page';
 import { EditDrillPage } from './drill-library/edit-drill/edit-drill.page';
 
 import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
+import { NativeAudio } from '@ionic-native/native-audio/ngx';
 
  // Your web app's Firebase configuration
  var firebaseConfig = {
@@ -84,6 +85,7 @@ firebase.initializeApp(firebaseConfig);
     SplashScreen,
     NativeRingtones,
     BackgroundMode,
+    NativeAudio,
     LocalNotifications,
     Vibration,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

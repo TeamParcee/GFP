@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons *ngIf="showTimer" slot="start">
+    <ion-buttons *ngIf="showTimer" slot="end">
       <ion-button (click)="stopTimer()">
-        Hide Timer
+        <ion-icon slot="icon-only" name="stopwatch"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Practice Plan</ion-title>
     <ion-buttons  *ngIf="!showTimer && user?.isCoach" slot="end">
       <ion-button (click)="runTimer()">
-        <ion-icon name="timer"></ion-icon>
+        <ion-icon slot="icon-only" name="stopwatch"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -37,7 +37,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid *ngIf="!showTimer">
+  <ion-grid >
 
     <ion-row>
       <ion-col>
