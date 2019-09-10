@@ -110,17 +110,16 @@ export class TimerService {
     }, 1000);
   }
 startRingtone(){
-  this.nativeAudio.preloadSimple('uniqueId1', '../../assets/ringtones/gfp.mp3');
+  this.nativeAudio.preloadSimple('uniqueId1', 'assets/ringtones/gfp.mp3');
   this.nativeAudio.play('uniqueId1');
-  this.ringtones.playRingtone('../../assets/ringtones/gfp.mp3');
+  this.ringtones.playRingtone('assets/ringtones/gfp.mp3');
 
 
 }
 
 stopRingtone(){
-  this.nativeAudio.preloadSimple('uniqueId1', '../../assets/ringtones/gfp.mp3');
   this.nativeAudio.stop('uniqueId1');
-  this.ringtones.stopRingtone('../../assets/ringtones/gfp.mp3');
+  this.ringtones.stopRingtone('assets/ringtones/gfp.mp3');
 }
   stopPlan(){
     this.firebaseService.setDocument("users/" + this.userService.user.uid + "/utilities/activeActivity", {active: false})
