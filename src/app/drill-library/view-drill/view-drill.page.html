@@ -11,10 +11,11 @@
 
 <ion-content>
 
-<video width="100%" height="240" controls autoplay>
+ <video *ngIf="!isYoutube" width="100%" height="240" controls autoplay>
     <source [src]="(drill.Video) ? drill.Video : drill.video" type="video/mp4">
     <source [src]="(drill.Video) ? drill.Video : drill.video" type="video/ogg">
   Your browser does not support the video tag.
-  </video>
-<a [href]="drill.Video">Video Link</a>
+  </video> 
+  <iframe  *ngIf="isYoutube"  width="420" height="345" [src]="sanatizeURl(drill.Video)">
+  </iframe>
 </ion-content>

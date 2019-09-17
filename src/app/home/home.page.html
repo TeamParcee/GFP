@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header no-border>
   <ion-toolbar>
 
     <ion-title>
@@ -13,10 +13,8 @@
 </ion-header>
 
 <ion-content>
-<ion-list-header *ngIf="user?.isCoach" padding>Welcome Coach {{ user?.lname }}</ion-list-header>
 
-
-  <ion-grid>
+  <ion-grid >
     <ion-row>
       <ion-col>
         <ion-list>
@@ -25,13 +23,12 @@
             <ion-card-header>
               <ion-card-title>{{ nextItem.itemType}}</ion-card-title>
               <ion-card-subtitle>{{ nextItem.datetime | fromNow }}</ion-card-subtitle>
-              <ion-card-subtitle>{{ nextItem.location }}k</ion-card-subtitle>
+              <ion-card-subtitle>{{ nextItem.location }}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
               {{ nextItem.notes }}
             </ion-card-content>
           </ion-card>
-          <ion-button routerLink="/tabs/schedule" fill="clear">View Schedule</ion-button>
         </ion-list>
       </ion-col>
     </ion-row>
@@ -45,7 +42,6 @@
                 <p>{{ news.created }}</p>
             </ion-label>
           </ion-item>
-          <ion-button routerLink="/tabs/news" fill="clear">View other news</ion-button>
         </ion-list>
 
       </ion-col>

@@ -1,16 +1,12 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> {{ (showRegister) ? "Welome to GFPlanner" : "Welcome Back" }}</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
 
-  <ion-button *ngIf=" !accountCreated && showRegister" (click)="showRegister = false" fill="clear">Already have an
-    account</ion-button>
 
-  <ion-button *ngIf=" !accountCreated && !showRegister" (click)="showRegister = true" fill="clear">Create an Account
-  </ion-button>
+
+  <h1 class="logo">GFPlanner</h1>
+  <ion-icon style="font-size: 100px; width: 100%; color: #520d01" name="american-football"></ion-icon>
+
+
+
 
   <ion-button *ngIf=" accountCreated " (click)="logout()" fill="clear">Log Off
   </ion-button>
@@ -20,4 +16,10 @@
   <app-login *ngIf=" !accountCreated && !showRegister"></app-login>
 
   <app-complete-register *ngIf="accountCreated"></app-complete-register>
+
+  <ion-button *ngIf=" !accountCreated && showRegister" (click)="showRegister = false" expand="full" fill="clear">Already have an
+    account</ion-button>
+
+  <ion-button *ngIf=" !accountCreated && !showRegister" (click)="showRegister = true" expand="full" fill="clear">Create an Account
+  </ion-button>
 </ion-content>

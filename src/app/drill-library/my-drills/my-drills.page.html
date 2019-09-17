@@ -4,8 +4,8 @@
     <ion-button *ngIf="user?.isCoach" (click)="addDrill()" fill="clear">Add Drill</ion-button>
     <ion-item  *ngFor="let drill of drills">
         <ion-label (click)="view(drill)">
-            {{ drill.drill }}
-            <p> {{drill.position}}</p>
+            {{ drill.Drill }}
+            <p> {{drill.Position}}</p>
         </ion-label>
         <ion-note (click)="edit(drill)" slot="end">Edit</ion-note>
     </ion-item>

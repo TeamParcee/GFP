@@ -13,15 +13,15 @@
   <ion-list>
     <ion-item>
       <ion-label position="floating">Drill Name</ion-label>
-      <ion-input [(ngModel)]="drill.drill"></ion-input>
+      <ion-input [(ngModel)]="drill.Drill"></ion-input>
     </ion-item>
     <ion-item>
         <ion-label position="floating">Drill Position</ion-label>
-        <ion-input [(ngModel)]="drill.position"></ion-input>
+        <ion-input [(ngModel)]="drill.Position"></ion-input>
       </ion-item>
       <ion-item>
           <ion-label position="floating">Drill Url</ion-label>
-          <ion-input [(ngModel)]="drill.video"></ion-input>
+          <ion-input [(ngModel)]="drill.Video"></ion-input>
         </ion-item>
   </ion-list>
   <ion-button expand="full" (click)="saveDrill(drill)" disable="!drill || !position || !video">Save Drill</ion-button>

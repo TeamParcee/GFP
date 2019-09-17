@@ -31,9 +31,9 @@ async getUser(){
 }
 saveDrill(){
 this.firebaseService.addDocument("/users/" + this.user.coach + "/drills", {
-  drill: this.drill,
-  position: this.position,
-  video: this.video
+  Drill: this.drill,
+  Position: this.position,
+  Video: this.video
 })
 this.helper.closeModal();
 }
