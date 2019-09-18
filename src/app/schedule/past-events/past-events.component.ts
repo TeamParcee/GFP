@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { HelperService } from 'src/app/services/helper.service';
 import { UserService } from 'src/app/services/user.service';
+import { EditScheduleItemPage } from '../edit-schedule-item/edit-schedule-item.page';
+import { ViewScheduleItemComponent } from '../view-schedule-item/view-schedule-item.component';
 
 @Component({
   selector: 'app-past-events',
@@ -48,5 +50,11 @@ export class PastEventsComponent implements OnInit {
 
   close(){
     this.helper.closeModal()
+  }
+
+
+
+  viewEvent(event){
+    this.helper.openModal(ViewScheduleItemComponent, {item: event})
   }
 }

@@ -13,7 +13,7 @@ import { WeeksComponent } from './practice-plan/weeks/weeks.component';
 import { DaysComponent } from './practice-plan/days/days.component';
 import { EditActivityPage } from './practice-plan/activities/edit-activity/edit-activity.page';
 import { FormsModule } from '@angular/forms';
-import { QuillModule,  } from 'ngx-quill'
+import { QuillModule, } from 'ngx-quill'
 import { ViewActivityPage } from './practice-plan/activities/view-activity/view-activity.page';
 import { ViewDrillPage } from './drill-library/view-drill/view-drill.page';
 
@@ -32,9 +32,10 @@ import { EditDrillPage } from './drill-library/edit-drill/edit-drill.page';
 
 import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { EditScheduleItemPage } from './schedule/edit-schedule-item/edit-schedule-item.page';
 
- // Your web app's Firebase configuration
- var firebaseConfig = {
+// Your web app's Firebase configuration
+var firebaseConfig = {
   apiKey: "AIzaSyDPAW5x5YwQ_lsuy6iO8O5JepFBzrJzLbw",
   authDomain: "gfp-914.firebaseapp.com",
   databaseURL: "https://gfp-914.firebaseio.com",
@@ -47,37 +48,39 @@ import { NativeAudio } from '@ionic-native/native-audio/ngx';
 firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations:
-  [AppComponent, 
-    WeeksComponent, 
-    DaysComponent, 
-    EditActivityPage, 
-    ViewActivityPage, 
-    NewScheduleItemComponent,
-    AddNewsPage,
-    AddDrillPage,
-    EditDrillPage,
-    ViewNewsPage,
-    PastEventsComponent,
-    ViewScheduleItemComponent,
-    ViewDrillPage],
+    [AppComponent,
+      WeeksComponent,
+      DaysComponent,
+      EditScheduleItemPage,
+      EditActivityPage,
+      ViewActivityPage,
+      NewScheduleItemComponent,
+      AddNewsPage,
+      AddDrillPage,
+      EditDrillPage,
+      ViewNewsPage,
+      PastEventsComponent,
+      ViewScheduleItemComponent,
+      ViewDrillPage],
   entryComponents: [
-    WeeksComponent, 
-    DaysComponent, 
+    WeeksComponent,
+    DaysComponent,
+    EditScheduleItemPage,
     NewScheduleItemComponent,
     EditDrillPage,
     PastEventsComponent,
     ViewScheduleItemComponent,
     AddNewsPage,
     ViewNewsPage,
-    EditActivityPage, 
-    ViewActivityPage, 
+    EditActivityPage,
+    ViewActivityPage,
     AddDrillPage,
     ViewDrillPage],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     QuillModule.forRoot(),
     FormsModule,
-    IonicModule.forRoot(), 
+    IonicModule.forRoot(),
     PipeModule,
     AppRoutingModule],
   providers: [
@@ -92,4 +95,4 @@ firebase.initializeApp(firebaseConfig);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

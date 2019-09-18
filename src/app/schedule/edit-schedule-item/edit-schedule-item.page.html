@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Edit Schedule Item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list *ngIf="tempEvent">
+    <ion-item>
+      <ion-label position="stacked">Type of Event</ion-label>
+      <ion-input [(ngModel)]="tempEvent.itemType"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Location</ion-label>
+      <ion-input [(ngModel)]="tempEvent.location"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Date / Time</ion-label>
+      <ion-datetime pickerFormat="MMM DD hh:mm a" displayFormat="MMM DD hh:mm a" [(ngModel)]="tempEvent.datetime">
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Notes</ion-label>
+      <ion-textarea auto-grow="true" [(ngModel)]="tempEvent.notes"></ion-textarea>
+    </ion-item>
+    <ion-button expand="block" margin-top (click)="save()">Save</ion-button>
+  </ion-list>
+  <ion-list *ngIf="!tempEvent">
+    <ion-item>
+        <ion-label position="stacked">Type of Event</ion-label>
+      <ion-skeleton-text width="100%"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Location</ion-label>
+      <ion-skeleton-text width="100%"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Date / Time</ion-label>
+      <ion-skeleton-text width="100%"></ion-skeleton-text>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Notes</ion-label>
+        <ion-skeleton-text width="100%"></ion-skeleton-text>
+      </ion-item>
+  </ion-list>
+</ion-content>

@@ -27,6 +27,6 @@
             <ion-label position="stacked">Notes</ion-label>
             <ion-textarea auto-grow="true" [(ngModel)]="notes"></ion-textarea>
         </ion-item>
-        <ion-button [disabled]="!itemType || !datetime || !notes || !location" expand="block" margin-top (click)="save()">Save</ion-button>
+        <ion-button expand="block" margin-top (click)="save()">Save</ion-button>
     </ion-list>
 </ion-content>

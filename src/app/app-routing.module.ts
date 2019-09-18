@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'view-drill', loadChildren: './drill-library/view-drill/view-drill.module#ViewDrillPageModule' },
   { path: 'add-drill', loadChildren: './drill-library/add-drill/add-drill.module#AddDrillPageModule' },
   { path: 'edit-drill', loadChildren: './drill-library/edit-drill/edit-drill.module#EditDrillPageModule' },
+  { path: 'edit-schedule-item', loadChildren: './schedule/edit-schedule-item/edit-schedule-item.module#EditScheduleItemPageModule' },
 
 
 ];

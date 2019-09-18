@@ -5,6 +5,7 @@ import { PastEventsComponent } from './past-events/past-events.component';
 import { ViewScheduleItemComponent } from './view-schedule-item/view-schedule-item.component';
 import { HelperService } from '../services/helper.service';
 import { UserService } from '../services/user.service';
+import { EditScheduleItemPage } from './edit-schedule-item/edit-schedule-item.page';
 
 @Component({
   selector: 'app-schedule',
@@ -60,5 +61,9 @@ export class SchedulePage implements OnInit {
 
   viewEvent(item) {
     this.helper.openModal(ViewScheduleItemComponent, { item: item })
+  }
+
+  editEvent(event){
+    this.helper.openModal(EditScheduleItemPage, {event: event})
   }
 }

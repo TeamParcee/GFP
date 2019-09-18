@@ -39,12 +39,13 @@
           <ion-list-header>Future Events</ion-list-header>
           <ion-item *ngIf="schedule?.length == 0" text-center text-wrap lines="none">There are currently no future
             events</ion-item>
-          <ion-item (click)="viewEvent(event)" *ngFor="let event of schedule">
-            <ion-label>
+          <ion-item  *ngFor="let event of schedule">
+            <ion-label (click)="viewEvent(event)">
               <h2> {{ event.itemType }}</h2>
               <p>{{ event.datetime | fromNow   }}</p>
               <p>{{ event.location   }}</p>
             </ion-label>
+            <ion-note *ngIf="user?.isCoach" slot="end" (click)="editEvent(event)">Edit</ion-note>
           </ion-item>
 
         </ion-list>
