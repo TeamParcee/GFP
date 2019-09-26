@@ -1,0 +1,7 @@
+<ion-list>
+    <ion-item>
+        <ion-label position="stacked">Start Time</ion-label>
+        <ion-datetime (ionChange)="updateTime()" [(ngModel)]="startTime"
+          pickerFormat="hh:mm a" displayFormat="hh:mm a"></ion-datetime>
+      </ion-item>
+</ion-list>

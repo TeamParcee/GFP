@@ -1,12 +1,18 @@
 <ion-header no-border>
   <ion-toolbar>
+    <ion-buttons *ngIf="false" slot="start">
+      <ion-button (click)="showMoreOptions($event)">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Practice Plan</ion-title>
     <ion-buttons *ngIf="showTimer" slot="end">
       <ion-button (click)="stopTimer()">
         <ion-icon slot="icon-only" name="stopwatch"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Practice Plan</ion-title>
-    <ion-buttons  *ngIf="!showTimer && user?.isCoach" slot="end">
+    <ion-buttons *ngIf="!showTimer && user?.isCoach" slot="end">
       <ion-button (click)="runTimer()">
         <ion-icon slot="icon-only" name="stopwatch"></ion-icon>
       </ion-button>
@@ -21,7 +27,8 @@
         <ion-card>
           <ion-card-header>
             <ion-card-subtitle> {{ currentActivity?.name }}</ion-card-subtitle>
-            <ion-card-title> {{ (currentActivity?.time) ? currentActivity?.time : "Getting Activity..." }}</ion-card-title>
+            <ion-card-title> {{ (currentActivity?.time) ? currentActivity?.time : "Getting Activity..." }}
+            </ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-label>
@@ -37,15 +44,16 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid >
+  <ion-grid>
 
     <ion-row>
       <ion-col>
-        <ion-button  [disabled]="!user?.isCoach" *ngIf="showSelectDate" size="small" fill="clear" (click)="checkDay()">
+        <ion-button [disabled]="!user?.isCoach" *ngIf="showSelectDate" size="small" fill="clear" (click)="checkDay()">
           {{ (date) ? date : "Choose Date" }}</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button   [disabled]="!user?.isCoach" *ngIf="showSelectTime" size="small" fill="clear" (click)="checkStartTime()">
+        <ion-button [disabled]="!user?.isCoach" *ngIf="showSelectTime" size="small" fill="clear"
+          (click)="checkStartTime($event)">
           {{ (startTime) ? (startTime | date: 'h:mm a') : "Start Time" }}</ion-button>
       </ion-col>
       <ion-col>
@@ -60,11 +68,7 @@
         <ionic-calendar-date-picker *ngIf="showCalendar" style="max-width: 100px" (onSelect)="dateSelected($event)">
         </ionic-calendar-date-picker>
 
-        <ion-item *ngIf="showStartTime">
-          <ion-label>Start Time</ion-label>
-          <ion-datetime (ionChange)="updateTime()" [(ngModel)]="startTime"
-            pickerFormat="hh:mm a" displayFormat="hh:mm a"></ion-datetime>
-        </ion-item>
+
 
       </ion-col>
     </ion-row>

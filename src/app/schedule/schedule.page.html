@@ -24,14 +24,17 @@
           <ion-list-header *ngIf="nextItem">Next Event</ion-list-header>
           <ion-card *ngIf="nextItem">
             <ion-card-header>
-              <ion-card-title>{{ nextItem.itemType }}</ion-card-title>
+              <ion-card-title>{{ nextItem.itemType }}
+              </ion-card-title>
               <ion-card-subtitle> {{ nextItem.datetime | fromNow }}</ion-card-subtitle>
               <ion-card-subtitle> {{ nextItem.location }}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-              <p>
-                {{ nextItem.notes }}
-              </p>
+              <ion-textarea disabled>
+                      {{ nextItem.notes }}
+              </ion-textarea>
+            
+              <ion-button fill="clear" *ngIf="user?.isCoach" slot="end" (click)="editEvent(nextItem)">Edit</ion-button>
             </ion-card-content>
 
           </ion-card>

@@ -10,6 +10,8 @@ import { FirebaseService } from '../services/firebase.service';
 import { Subject } from 'rxjs';
 import { TimerService } from '../services/timer.service';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { StartTimeComponent } from './start-time/start-time.component';
+import { MoreOptionsComponent } from './more-options/more-options.component';
 
 @Component({
   selector: 'app-practice-plan',
@@ -50,7 +52,6 @@ export class PracticePlanPage implements OnInit {
     await this.getUser();
     this.getCurrentWeek();
     this.getCurrentDay();
-    
   }
 
 
@@ -62,7 +63,7 @@ export class PracticePlanPage implements OnInit {
   }
 
   viewDays() {
-    this.helper.presentPopover(event, DaysComponent, { currentWeek: this.currentWeek, currentDay: this.currentDay })
+    this.helper.presentPopover(event, DaysComponent, { currentWeek: this.currentWeek, currentDay: this.currentDay})
   }
 
   getCurrentWeek() {
@@ -106,18 +107,15 @@ export class PracticePlanPage implements OnInit {
     this.showCalendar = !this.showCalendar
   }
 
-  checkStartTime() {
+  checkStartTime(event) {
     if (this.currentDay.id == 0) {
       this.helper.okAlert("Select Day", "Please select a day.")
       return;
     }
-    this.showStartTime = !this.showStartTime
+    this.helper.presentPopover(event, StartTimeComponent,  { currentWeek: this.currentWeek, currentDay: this.currentDay, startTime: this.startTime, user: this.user})
   }
 
-  updateTime() {
-    this.firebaseService.updateDocument("/users/" + this.user.coach + "/weeks/" + this.currentWeek.weekId + "/days/" + this.currentDay.id, { start: this.startTime })
-    this.firebaseService.updateDocument("/users/" + this.userService.user.uid + "/utility/currentDay/", { start: this.startTime })
-  }
+
   runTimer(){
   this.background.enable();
     this.showTimer = true;
@@ -139,4 +137,15 @@ export class PracticePlanPage implements OnInit {
     this.timerStarted = false;
   }
   
+
+  getDefaultDay(){
+    this.currentWeek = this.firebaseService.getDocument("/users/" + this.user.coach + "/utilities/defaultWeek");
+    this.currentDay = this.firebaseService.getDocument("/users/" + this.user.coach + "/utilities/defaultDay");
+  }
+
+  
+
+  showMoreOptions(event){
+    this.helper.presentPopover(event, MoreOptionsComponent, { currentWeek: this.currentWeek, currentDay: this.currentDay, startTime: this.startTime, user: this.user})
+  }
 }

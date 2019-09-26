@@ -33,6 +33,8 @@ import { EditDrillPage } from './drill-library/edit-drill/edit-drill.page';
 import { NativeRingtones } from '@ionic-native/native-ringtones/ngx';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { EditScheduleItemPage } from './schedule/edit-schedule-item/edit-schedule-item.page';
+import { StartTimeComponent } from './practice-plan/start-time/start-time.component';
+import { MoreOptionsComponent } from './practice-plan/more-options/more-options.component';
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -54,9 +56,11 @@ firebase.initializeApp(firebaseConfig);
       EditScheduleItemPage,
       EditActivityPage,
       ViewActivityPage,
+      StartTimeComponent,
       NewScheduleItemComponent,
       AddNewsPage,
       AddDrillPage,
+      MoreOptionsComponent,
       EditDrillPage,
       ViewNewsPage,
       PastEventsComponent,
@@ -68,7 +72,9 @@ firebase.initializeApp(firebaseConfig);
     EditScheduleItemPage,
     NewScheduleItemComponent,
     EditDrillPage,
+    StartTimeComponent,
     PastEventsComponent,
+    MoreOptionsComponent,
     ViewScheduleItemComponent,
     AddNewsPage,
     ViewNewsPage,
